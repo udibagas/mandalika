@@ -22,8 +22,8 @@ class CreateSensorSettingsTable extends Migration
             $table->integer('max_value');
             $table->string('unit');
             $table->string('value_formatter');
-            $table->json('value_description');
-            $table->json('secondary_unit')->nullable();
+            $table->text('value_description');
+            $table->text('secondary_unit')->nullable();
             $table->string('chart_type');
             $table->timestamps();
         });

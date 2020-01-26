@@ -13,13 +13,13 @@ class CreateSensorLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sensor_logs', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('ketinggian')->default(0);
-            $table->string('parameter');
-            $table->integer('nilai');
-            $table->timestamps();
-        });
+        // Schema::create('sensor_logs', function (Blueprint $table) {
+        //     $table->bigIncrements('id');
+        //     $table->integer('ketinggian')->default(0);
+        //     $table->string('parameter');
+        //     $table->integer('nilai');
+        //     $table->timestamps();
+        // });
     }
 
     /**
