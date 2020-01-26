@@ -24,11 +24,10 @@ export default {
                 series: [
                     {
                         min: 0,
-                        max: 250,
-                        name: 'kecepatan',
+                        max: 100,
                         type: 'gauge',
-                        // startAngle: 180,
-                        // endAngle: 0,
+                        startAngle: 200,
+                        endAngle: -20,
                         pointer: { width: 3 },
                         splitNumber: 5,
                         axisLine: {
@@ -51,8 +50,8 @@ export default {
                         },
                         radius: '70',
                         center: ['15%', '70%'],
-                        // detail: {formatter: '{value}%'},
-                        data: [{value: 50, name: 'mph'}]
+                        detail: { formatter: '{value}%', fontSize: 22, fontWeight: 'bold', color: '#000' },
+                        data: [{value: 50}]
                     }
                 ]
             }

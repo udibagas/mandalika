@@ -9,6 +9,11 @@ const router = new VueRouter({
             path: '/',
             name: 'home',
             component: require('./pages/Home').default
+        },
+        {
+            path: '/user',
+            name: 'user',
+            component: require('./pages/User').default
         }
     ]
 })

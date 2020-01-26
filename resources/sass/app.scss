@@ -3,6 +3,17 @@
 @import '~element-ui/lib/theme-chalk/index.css';
 @import '~element-ui/lib/theme-chalk/display.css';
 
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    color: #505050;
+    margin: 0;
+    padding: 0;
+}
+
 .bg {
     height: 100vh;
     background-image: url('/images/bg.jpeg');
@@ -25,3 +36,21 @@
 
     border-radius: 0;
 }
+
+.el-card__header {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.el-table {
+    border-top: 1px solid #eee;
+}
+
+.el-icon-more {
+    transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
+

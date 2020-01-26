@@ -15,23 +15,55 @@ export default {
     data() {
         return {
             chartOptions: {
-                xAxis: {
-                    type: 'category',
-                    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+                grid: {
+                    left: '50px'
                 },
-                yAxis: {
-                    type: 'value'
-                },
-                axisLine: {
-                    lineStyle: {
-                        type: 'dashed',
-                        opacity: 0
+                title: {
+                    text: 'SUHU UDARA',
+                    subtext: this.height + 'm',
+                    textStyle: {
+                        fontSize: 13
+                    },
+                    subtextStyle: {
+                        color: '#333',
+                        fontSize: 13,
+                        fontWeight: 'bold'
                     }
                 },
+                xAxis: {
+                    type: 'category',
+                    data: ['Outside Temp', 'Wind Chill', 'Heat Index', 'Dew Point', 'Inside Temp'],
+                    axisLabel: {
+                        interval: 0,
+                        rotate: 40
+                    },
+                    splitLine: {
+                        show: false
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    splitNumber: 5,
+                    min: 0,
+                    max: 100,
+                    axisLabel: {
+                        formatter: '{value} °F'
+                    }
+                },
+                axisLine: {
+                    lineStyle: { opacity: 0 }
+                },
                 series: [{
-                    data: [820, 932, 901, 934, 1290, 1330, 1320],
                     type: 'bar',
-                    color: '#54a8cd'
+                    barWidth: '75%',
+                    label: { show: true, position: 'top', color: '#000', fontWeight: 'bold' },
+                    data: [
+                        { value: 70, itemStyle: { color: '#c52728' } },
+                        { value: 67, itemStyle: { color: '#3387c3' } },
+                        { value: 71, itemStyle: { color: '#e88021' } },
+                        { value: 64, itemStyle: { color: '#38926e' } },
+                        { value: 66, itemStyle: { color: '#55a9ce' } },
+                    ],
                 }]
             }
         }
@@ -42,6 +74,7 @@ export default {
 
 <style lang="scss" scoped>
 .echarts {
-    height: 200px;
+    max-width: 400px;
+    height: 250px;
 }
 </style>

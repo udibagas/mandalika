@@ -15,6 +15,10 @@ export default {
     data() {
         return {
             chartOptions: {
+                grid: {
+                    bottom: '0px',
+                    left: '0px'
+                },
                 title: {
                     text: 'KECEPATAN ANGIN',
                     subtext: this.height + 'm',
@@ -33,8 +37,8 @@ export default {
                         max: 250,
                         name: 'kecepatan',
                         type: 'gauge',
-                        // startAngle: 180,
-                        // endAngle: 0,
+                        startAngle: 200,
+                        endAngle: -20,
                         pointer: { width: 3 },
                         splitNumber: 5,
                         axisLine: {
@@ -57,7 +61,19 @@ export default {
                         },
                         radius: '70',
                         center: ['15%', '70%'],
-                        // detail: {formatter: '{value}%'},
+                        detail: {
+                            fontSize: 24,
+                            fontWeight: 'bold',
+                            color: '#000',
+                            // borderWidth: 1,
+                            // borderColor: '#ddd',
+                            // borderRadius: 2,
+                        },
+                        title: {
+                            offsetCenter: [0, '70%'],
+                            fontSize: 12,
+                            // fontWeight: 'bold',
+                        },
                         data: [{value: 50, name: 'mph'}]
                     }
                 ]

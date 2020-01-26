@@ -13,6 +13,11 @@ class SensorSetting extends Model
         'secondary_unit', 'chart_type'
     ];
 
+    protected $casts = [
+        'value_description' => 'json',
+        'secondary_unit' => 'json'
+    ];
+
     public static function decimalToDate($decimal)
     {
         $binary = str_pad(decbin($decimal), 16, '0', STR_PAD_LEFT);

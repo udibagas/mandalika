@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Http\Requests\UserRequest;
+use Illuminate\Support\Str;
 use \App\User;
+
 
 class UserController extends Controller
 {
@@ -32,8 +34,7 @@ class UserController extends Controller
             $input['password'] = Hash::make($request->password);
         }
 
-        $input['api_token'] = String::random();
-
+        $input['api_token'] = Str::random();
         return User::create($input);
     }
 
@@ -61,10 +62,12 @@ class UserController extends Controller
 
         if ($request->passsword) {
             $input['password'] = Hash::make($request->password);
+        } else {
+            unset($input['password']);
         }
 
-        $input['api_token'] = String::random();
-
+        $input['api_token'] = Str::random();
+        $user->update($input);
         return $user;
     }
 

@@ -1,8 +1,40 @@
+@font-face {
+    font-family: "OpenSans";
+    font-weight: normal;
+    src: url("../assets/fonts/open-sans/OpenSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: "OpenSans";
+    font-weight: bold;
+    src: url("../assets/fonts/open-sans/OpenSans-Semibold.ttf");
+}
+
+@font-face {
+  font-family: "OpenSans";
+  font-weight: normal;
+  font-style : italic;
+  src: url("../assets/fonts/open-sans/OpenSans-Italic.ttf");
+}
+
+@font-face {
+    font-family: "OpenSans";
+    font-weight: bold;
+    font-style : italic;
+    src: url("../assets/fonts/open-sans/OpenSans-BoldItalic.ttf");
+}
+
+@font-face {
+    font-family: "OpenSans";
+    font-weight: lighter;
+    src: url("../assets/fonts/open-sans/OpenSans-Light.ttf");
+}
+
 // Body
-$body-bg: #f1f1f1;
+$body-bg: #ffffff;
 
 // Typography
-// $font-family-sans-serif: 'Nunito', sans-serif;
+$font-family-sans-serif: 'OpenSans', sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 

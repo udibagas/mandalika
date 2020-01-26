@@ -4,12 +4,12 @@
 <div class="d-flex flex-row">
     <div class="flex-fill bg">
         <div style="width:700px;margin:200px auto 0;" class="text-white">
-            <h1>Selamat Datang di Mandalika Wind</h1>
-            <p style="font-size:18px">Akses data lingkungan dan suhu di Mandalika dalam satu tempat</p>
+            <h1 style="font-weight:bold">Selamat Datang di Mandalika Wind</h1>
+            <p style="font-size:18px;font-weight:bold">Akses data lingkungan dan suhu di Mandalika dalam satu tempat</p>
 
             <br>
 
-            <a href="#" class="btn btn-success">Pelajari lebih lanjut</a>
+            <a href="#" class="btn btn-success"><strong>Pelajari Lebih Lanjut</strong></a>
         </div>
     </div>
     <div class="login-container">

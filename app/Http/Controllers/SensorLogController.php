@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\SensorLog;
+use App\SensorSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -31,18 +32,31 @@ class SensorLogController extends Controller
 
         foreach ($input as $parameter => $nilai)
         {
+            if ($parameter == 'api_token') continue;
+
+            $setting = SensorSetting::where('parameter', $parameter)->first();
+
+            if (!$setting) {
+                return response(['message' => 'Parameter '.$parameter.' belum didefinisikan'], 422);
+            }
+
             $data[] = [
-                'ketinggian' => SensorLog::getKetinggian($parameter),
+                'ketinggian' => $setting->height,
                 'parameter' => $parameter,
-                'nilai' => $nilai
+                'nilai' => $nilai,
+                'created_at' => now(),
+                'updated_at' => now()
             ];
         }
 
         try {
             DB::table('sensor_logs')->insert($data);
-            return 'OK';
+            return [
+                'success' => true,
+                'message' => 'OK',
+            ];
         } catch (\Exception $e) {
-            return $e->getMessage();
+            return response(['message' => $e->getMessage()], 500);
         }
     }
 

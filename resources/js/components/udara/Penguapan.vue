@@ -15,6 +15,10 @@ export default {
     data() {
         return {
             chartOptions: {
+                grid: {
+                    left: '70px',
+                    bottom: '20px'
+                },
                 title: {
                     text: 'PENGUAPAN AIR',
                     textStyle: {
@@ -23,10 +27,14 @@ export default {
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['Mon', 'Tue', 'Wed']
+                    data: ['Mon', 'Tue']
                 },
                 yAxis: {
-                    type: 'value'
+                    type: 'value',
+                    splitNumber: 5,
+                    axisLabel: {
+                        formatter: '{value} in³/jam'
+                    }
                 },
                 axisLine: {
                     lineStyle: {
@@ -35,9 +43,12 @@ export default {
                     }
                 },
                 series: [{
-                    data: [820, 932, 901],
                     type: 'bar',
-                    color: '#54a8cd'
+                    label: { show: true, position: 'top', color: '#000', fontWeight: 'bold' },
+                    data: [
+                        { value: 2.43, itemStyle: { color: '#55a9ce' } },
+                        { value: 0.60, itemStyle: { color: '#38926e' } },
+                    ],
                 }]
             }
         }
@@ -48,6 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .echarts {
+    max-width: 180px;
     height: 200px;
 }
 </style>
