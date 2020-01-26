@@ -1,9 +1,5 @@
 <?php
 
-use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -15,10 +11,8 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', 'AuthController@login');
+
+Route::group(['middleware' => 'auth:api'], function() {
+    Route::post('migrate', 'AdminController@migrate');
 });
-
-
-Route::post('migrate', 'AdminController@migrate');
-Route::post('user', 'AdminController@newUser');

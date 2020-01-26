@@ -15,18 +15,4 @@ class AdminController extends Controller
         Artisan::call('migrate');
         return ['message' => 'Migration success'];
     }
-
-    public function newUser(Request $request)
-    {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users,email',
-            'password' => 'required|min:6',
-        ]);
-
-        $input = $request->all();
-        $input['password'] = Hash::make($request->password);
-        $input['api_token'] = Str::random(64);
-        return User::create($input);
-    }
 }
