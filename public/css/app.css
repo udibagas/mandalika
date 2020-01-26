@@ -11356,6 +11356,20 @@ a.text-dark:focus {
   }
 }
 
+.bg {
+  height: 100vh;
+  background-image: url("/images/bg.jpeg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-container {
+  width: 330px;
+  height: 100vh;
+  padding: 30px;
+  background-color: #fff;
+}
+
 .el-main {
   padding: 5px;
 }
