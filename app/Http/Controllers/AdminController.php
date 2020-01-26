@@ -24,8 +24,8 @@ class AdminController extends Controller
         ]);
 
         $input = $request->all();
-        $input['password'] = $request->password;
+        $input['password'] = Hash::make($request->password);
         $input['api_token'] = Str::random(64);
-        return User::create($request->all());
+        return User::create($input);
     }
 }
