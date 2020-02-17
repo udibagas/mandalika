@@ -10,6 +10,8 @@ class SensorLog extends Model
 
     protected $appends = ['value'];
 
+    protected $with = ['setting'];
+
     public function setting()
     {
         return $this->belongsTo(SensorSetting::class, 'parameter', 'parameter');
@@ -17,6 +19,6 @@ class SensorLog extends Model
 
     public function getValueAttribute()
     {
-        return eval("return ".str_replace('data', $this->nilai, $this->setting->value_formatter).";");
+        return eval("return " . str_replace('data', $this->nilai, $this->setting->value_formatter) . ";");
     }
 }

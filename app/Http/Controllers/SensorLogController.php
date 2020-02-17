@@ -14,9 +14,11 @@ class SensorLogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return SensorLog::when($request->dateRange, function ($q) use ($request) {
+            return $q->whereRaw('DATE(created_at) BETWEEN ? AND ?', $request->dateRange);
+        })->paginate($request->pageSize);
     }
 
     /**
@@ -30,14 +32,13 @@ class SensorLogController extends Controller
         $input = $request->all();
         $data = [];
 
-        foreach ($input as $parameter => $nilai)
-        {
+        foreach ($input as $parameter => $nilai) {
             if ($parameter == 'api_token') continue;
 
             $setting = SensorSetting::where('parameter', $parameter)->first();
 
             if (!$setting) {
-                return response(['message' => 'Parameter '.$parameter.' belum didefinisikan'], 422);
+                return response(['message' => 'Parameter ' . $parameter . ' belum didefinisikan'], 422);
             }
 
             $data[] = [

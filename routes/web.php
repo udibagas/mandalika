@@ -15,8 +15,10 @@ Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::group(['middleware' => 'auth'], function() {
+Route::group(['middleware' => 'auth'], function () {
     Route::resource('user', 'UserController')->only(['index', 'show', 'store', 'update', 'destroy']);
+    Route::resource('sensorSetting', 'SensorSettingController')->only(['index', 'show', 'store', 'update', 'destroy']);
+    Route::get("sensorLog", "SensorLogController@index");
 });
 
 Route::get('/{any}', 'HomeController@index')->where('any', '.*');

@@ -16,7 +16,8 @@ export default {
         return {
             chartOptions: {
                 grid: {
-                    left: '60px'
+                    left: '60px',
+                    bottom: '20px'
                 },
                 title: {
                     text: 'TEKANAN UDARA',

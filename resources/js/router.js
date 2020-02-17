@@ -11,10 +11,25 @@ const router = new VueRouter({
             component: require('./pages/Home').default
         },
         {
+            path: '/chart',
+            name: 'home',
+            component: require('./pages/Home').default
+        },
+        {
             path: '/user',
             name: 'user',
             component: require('./pages/User').default
-        }
+        },
+        {
+            path: '/table',
+            name: 'table',
+            component: require('./pages/Table').default
+        },
+        {
+            path: '/sensor-setting',
+            name: 'sensor-setting',
+            component: require('./pages/SensorSetting').default
+        },
     ]
 })
 

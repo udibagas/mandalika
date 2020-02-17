@@ -11439,3 +11439,7 @@ body {
   -o-transform: rotate(90deg);
 }
 
+.el-table .cell {
+  word-break: normal;
+}
+
