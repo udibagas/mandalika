@@ -1,34 +1,45 @@
 <template>
-  <el-card>
-    <div slot="header" class="d-flex">
-      <div class="flex-grow-1">DATA SENSOR</div>
-      <div class="flex-grow-0">
-        <el-form inline>
-          <el-form-item>
-            <el-date-picker
-              v-model="dateRange"
-              @change="requestData"
-              type="daterange"
-              range-separator="-"
-              start-placeholder="Start date"
-              end-placeholder="End date"
-            ></el-date-picker>
-          </el-form-item>
-          <!-- <el-form-item>
-            <el-input
-              v-model="keyword"
-              placeholder="Cari"
-              prefix-icon="el-icon-search"
-              :clearable="true"
-              @change="(v) => { keyword = v; requestData(); }"
-            ></el-input>
-          </el-form-item>-->
-        </el-form>
-      </div>
+  <div style="padding: 20px">
+    <h3>DATA SENSOR</h3>
+    <hr />
+    <div class="d-flex">
+      <el-pagination
+        class="flex-grow-1"
+        background
+        @current-change="(p) => { page = p; requestData(); }"
+        @size-change="(s) => { pageSize = s; requestData(); }"
+        layout="total, sizes, prev, next"
+        :page-size="pageSize"
+        :page-sizes="[10, 25, 50, 100]"
+        :total="tableData.total"
+      ></el-pagination>
+      <el-form inline class="flex-grow-0">
+        <el-form-item>
+          <el-date-picker
+            v-model="dateRange"
+            @change="requestData"
+            type="daterange"
+            range-separator="-"
+            start-placeholder="Start date"
+            end-placeholder="End date"
+            format="dd-MMM-yyyy"
+            value-format="yyyy-MM-dd"
+          ></el-date-picker>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" icon="el-icon-download" @click="exportToExcel">EXPORT KE EXCEL</el-button>
+        </el-form-item>
+      </el-form>
     </div>
 
-    <el-table :data="tableData.data" stripe v-loading="loading" height="calc(100vh - 270px)">
-      <el-table-column label="Waktu">
+    <el-table
+      :data="tableData.data"
+      stripe
+      v-loading="loading"
+      @sort-change="sortChange"
+      :default-sort="{prop: sort, order: order}"
+    >
+      <el-table-column label="Waktu" prop="created_at" sortable="custom">
         <template slot-scope="scope">{{scope.row.created_at | readableDateTime}}</template>
       </el-table-column>
       <el-table-column prop="setting.description" label="Parameter"></el-table-column>
@@ -54,10 +65,12 @@
       :page-sizes="[10, 25, 50, 100]"
       :total="tableData.total"
     ></el-pagination>
-  </el-card>
+  </div>
 </template>
 
 <script>
+import exportFromJSON from "export-from-json";
+
 export default {
   data() {
     return {
@@ -66,16 +79,61 @@ export default {
       keyword: "",
       tableData: {},
       loading: false,
-      dateRange: null
+      dateRange: null,
+      sort: "created_at",
+      order: "descending"
     };
   },
   methods: {
+    sortChange(c) {
+      if (c.prop != this.sort || c.order != this.order) {
+        this.sort = c.prop;
+        this.order = c.order;
+        this.requestData();
+      }
+    },
+    exportToExcel() {
+      const params = {
+        dateRange: this.dateRange,
+        order: this.order,
+        sort: this.sort
+      };
+      axios
+        .get("sensorLog/exportToExcel", { params })
+        .then(r => {
+          const data = r.data.map(d => {
+            return {
+              Tanggal: d.created_at,
+              Parameter: d.setting.description,
+              Ketinggian: d.ketinggian,
+              "Nilai Raw": d.nilai,
+              "Nilai Real": d.value,
+              Satuan: d.setting.unit
+            };
+          });
+
+          exportFromJSON({ data, fileName: "sensor-log", exportType: "xls" });
+        })
+        .catch(e => {
+          console.log(e);
+          if (e.response.status === 500) {
+            this.$message({
+              message: e.response.data.message,
+              type: "error",
+              showClose: true,
+              duration: 10000
+            });
+          }
+        });
+    },
     requestData() {
       let params = {
         keyword: this.keyword,
         page: this.page,
         pageSize: this.pageSize,
-        dateRange: this.dateRange
+        dateRange: this.dateRange,
+        order: this.order,
+        sort: this.sort
       };
 
       this.loading = true;

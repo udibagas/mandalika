@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SensorSettingRequest;
 use App\SensorSetting;
 use Illuminate\Http\Request;
 
@@ -14,10 +15,11 @@ class SensorSettingController extends Controller
      */
     public function index(Request $request)
     {
+
         return SensorSetting::when($request->keyword, function ($q) use ($request) {
             return $q->where('description', 'LIKE', '%' . $request->keyword . '%')
                 ->orWhere('parameter', 'LIKE', '%' . $request->keyword . '%');
-        })->orderBy('description')->get();
+        })->orderBy($request->sort ?: 'parameter', $request->order == 'ascending' ? 'asc' : 'desc')->get();
     }
 
     /**
@@ -26,7 +28,7 @@ class SensorSettingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SensorSettingRequest $request)
     {
         return SensorSetting::create($request->all());
     }
@@ -38,7 +40,7 @@ class SensorSettingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SensorSetting $sensorSetting)
+    public function update(SensorSettingRequest $request, SensorSetting $sensorSetting)
     {
         $sensorSetting->update($request->all());
         return $sensorSetting;
@@ -53,6 +55,8 @@ class SensorSettingController extends Controller
     public function destroy(SensorSetting $sensorSetting)
     {
         $sensorSetting->delete();
-        return $sensorSetting;
+        return [
+            'message' => 'Data berhasil dihapus'
+        ];
     }
 }

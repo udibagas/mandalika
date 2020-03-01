@@ -18,7 +18,9 @@ class SensorLogController extends Controller
     {
         return SensorLog::when($request->dateRange, function ($q) use ($request) {
             return $q->whereRaw('DATE(created_at) BETWEEN ? AND ?', $request->dateRange);
-        })->paginate($request->pageSize);
+        })
+            ->orderBy($request->sort ?: 'created_at', $request->order == 'ascending' ? 'asc' : 'desc')
+            ->paginate($request->pageSize);
     }
 
     /**
@@ -78,5 +80,12 @@ class SensorLogController extends Controller
             ->where('parameter', $request->parameter)
             ->latest()
             ->first();
+    }
+
+    public function exportToExcel(Request $request)
+    {
+        return SensorLog::when($request->dateRange, function ($q) use ($request) {
+            return $q->whereRaw('DATE(created_at) BETWEEN ? AND ?', $request->dateRange);
+        })->orderBy($request->sort ?: 'created_at', $request->order == 'ascending' ? 'asc' : 'desc')->get();
     }
 }

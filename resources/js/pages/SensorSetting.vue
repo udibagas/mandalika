@@ -1,9 +1,11 @@
 <template>
-  <el-card>
-    <div slot="header" class="d-flex">
-      <div class="flex-grow-1">SENSOR SETTING</div>
+  <div style="padding:20px">
+    <div class="d-flex">
+      <div class="flex-grow-1">
+        <h3>SENSOR SETTING</h3>
+      </div>
       <div class="flex-grow-0">
-        <el-form inline>
+        <el-form inline @submit.native.prevent="() => { return }">
           <el-form-item>
             <el-button type="primary" icon="el-icon-plus" @click="openForm({})">TAMBAH SENSOR</el-button>
           </el-form-item>
@@ -20,11 +22,29 @@
       </div>
     </div>
 
-    <el-table :data="tableData" stripe height="calc(100vh - 215px)" v-loading="loading">
+    <el-table
+      @sort-change="sortChange"
+      :default-sort="{prop: sort, order: order}"
+      :data="tableData"
+      stripe
+      v-loading="loading"
+    >
       <el-table-column type="index" label="#"></el-table-column>
-      <el-table-column prop="description" label="Keterangan" min-width="150px"></el-table-column>
-      <el-table-column prop="parameter" label="Parameter" align="center" header-align="center"></el-table-column>
-      <el-table-column prop="height" label="Ketinggian (m)" align="center" header-align="center"></el-table-column>
+      <el-table-column prop="description" label="Keterangan" min-width="150px" sortable="custom"></el-table-column>
+      <el-table-column
+        prop="parameter"
+        label="Parameter"
+        align="center"
+        header-align="center"
+        sortable="custom"
+      ></el-table-column>
+      <el-table-column
+        prop="height"
+        label="Ketinggian (m)"
+        align="center"
+        header-align="center"
+        sortable="custom"
+      ></el-table-column>
       <el-table-column prop="min_value" label="Nilai Min." align="center" header-align="center"></el-table-column>
       <el-table-column prop="max_value" label="Nilai Max." align="center" header-align="center"></el-table-column>
       <el-table-column prop="unit" label="Unit" align="center" header-align="center"></el-table-column>
@@ -66,7 +86,6 @@
     <el-dialog
       :visible.sync="showForm"
       :title="!!formModel.id ? 'EDIT SENSOR SETTING' : 'TAMBAH SENSOR SETTING'"
-      width="500px"
       v-loading="loading"
       :close-on-click-modal="false"
     >
@@ -78,56 +97,62 @@
         style="margin-bottom:15px;"
       ></el-alert>
 
-      <el-form label-width="160px" label-position="left">
-        <el-form-item label="Nama" :class="formErrors.name ? 'is-error' : ''">
-          <el-input placeholder="Nama" v-model="formModel.name"></el-input>
-          <div class="el-form-item__error" v-if="formErrors.name">{{formErrors.name[0]}}</div>
+      <el-form label-width="150px" label-position="left">
+        <el-form-item label="Parameter" :class="formErrors.parameter ? 'is-error' : ''">
+          <el-input placeholder="Parameter" v-model="formModel.parameter"></el-input>
+          <div class="el-form-item__error" v-if="formErrors.parameter">{{formErrors.parameter[0]}}</div>
         </el-form-item>
 
-        <el-form-item label="Alamat Email" :class="formErrors.email ? 'is-error' : ''">
-          <el-input placeholder="Alamat Email" v-model="formModel.email"></el-input>
-          <div class="el-form-item__error" v-if="formErrors.email">{{formErrors.email[0]}}</div>
-        </el-form-item>
-
-        <el-form-item label="Level" :class="formErrors.role ? 'is-error' : ''">
-          <el-select v-model="formModel.role" placeholder="Level" style="width:100%">
-            <el-option
-              v-for="(t, i) in [{value: 0, label: 'User'}, {value: 1, label: 'Admin'}]"
-              :value="t.value"
-              :label="t.label"
-              :key="i"
-            ></el-option>
-          </el-select>
-          <div class="el-form-item__error" v-if="formErrors.type">{{formErrors.role[0]}}</div>
-        </el-form-item>
-
-        <el-form-item label="Password" :class="formErrors.password ? 'is-error' : ''">
-          <el-input type="password" placeholder="Password" v-model="formModel.password"></el-input>
-          <div class="el-form-item__error" v-if="formErrors.password">{{formErrors.password[0]}}</div>
-        </el-form-item>
-
-        <el-form-item label="Konfirmasi Password" :class="formErrors.password ? 'is-error' : ''">
+        <el-form-item label="Keterangan" :class="formErrors.description ? 'is-error' : ''">
           <el-input
-            type="password"
-            placeholder="Konfirmasi Password"
-            v-model="formModel.password_confirmation"
+            type="textarea"
+            autosize
+            placeholder="Keterangan"
+            v-model="formModel.description"
           ></el-input>
+          <div
+            class="el-form-item__error"
+            v-if="formErrors.description"
+          >{{formErrors.description[0]}}</div>
         </el-form-item>
 
-        <el-form-item label="Status" :class="formErrors.active ? 'is-error' : ''">
-          <el-switch
-            :active-value="1"
-            :inactive-value="0"
-            v-model="formModel.active"
-            active-color="#13ce66"
-          ></el-switch>
-          <el-tag
-            :type="formModel.active ? 'success' : 'info'"
-            size="small"
-            style="margin-left:10px"
-          >{{!!formModel.active ? 'Aktif' : 'Nonaktif'}}</el-tag>
+        <el-form-item label="Ketinggian" :class="formErrors.height ? 'is-error' : ''">
+          <el-input type="number" placeholder="Ketinggian" v-model="formModel.height"></el-input>
+          <div class="el-form-item__error" v-if="formErrors.height">{{formErrors.height[0]}}</div>
+        </el-form-item>
 
-          <div class="el-form-item__error" v-if="formErrors.active">{{formErrors.active[0]}}</div>
+        <el-form-item label="Nilai Min." :class="formErrors.min_value ? 'is-error' : ''">
+          <el-input type="number" placeholder="Nilai Min." v-model="formModel.min_value"></el-input>
+          <div class="el-form-item__error" v-if="formErrors.min_value">{{formErrors.min_value[0]}}</div>
+        </el-form-item>
+
+        <el-form-item label="Nilai Max." :class="formErrors.max_value ? 'is-error' : ''">
+          <el-input type="number" placeholder="Nilai Max." v-model="formModel.max_value"></el-input>
+          <div class="el-form-item__error" v-if="formErrors.max_value">{{formErrors.max_value[0]}}</div>
+        </el-form-item>
+
+        <el-form-item label="Unit" :class="formErrors.unit ? 'is-error' : ''">
+          <el-input placeholder="Unit" v-model="formModel.unit"></el-input>
+          <div class="el-form-item__error" v-if="formErrors.unit">{{formErrors.unit[0]}}</div>
+        </el-form-item>
+
+        <el-form-item label="Rumus Nilai" :class="formErrors.value_formatter ? 'is-error' : ''">
+          <el-input placeholder="Rumus Nilai" v-model="formModel.value_formatter"></el-input>
+          <div
+            class="el-form-item__error"
+            v-if="formErrors.value_formatter"
+          >{{formErrors.value_formatter[0]}}</div>
+        </el-form-item>
+
+        <el-form-item
+          label="Keterangan Nilai"
+          :class="formErrors.value_formatter ? 'is-error' : ''"
+        >
+          <el-input placeholder="Keterangan Nilai" v-model="formModel.value_formatter"></el-input>
+          <div
+            class="el-form-item__error"
+            v-if="formErrors.value_description"
+          >{{formErrors.value_description[0]}}</div>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -139,7 +164,7 @@
         >SIMPAN</el-button>
       </span>
     </el-dialog>
-  </el-card>
+  </div>
 </template>
 
 <script>
@@ -152,10 +177,19 @@ export default {
       formModel: {},
       keyword: "",
       tableData: [],
-      loading: false
+      loading: false,
+      sort: "parameter",
+      order: "ascending"
     };
   },
   methods: {
+    sortChange(c) {
+      if (c.prop != this.sort || c.order != this.order) {
+        this.sort = c.prop;
+        this.order = c.order;
+        this.requestData();
+      }
+    },
     openForm(data) {
       this.error = {};
       this.formErrors = {};
@@ -244,7 +278,12 @@ export default {
         .catch(() => console.log(e));
     },
     requestData() {
-      let params = { keyword: this.keyword };
+      let params = {
+        keyword: this.keyword,
+        sort: this.sort,
+        order: this.order
+      };
+
       this.loading = true;
 
       axios

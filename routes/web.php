@@ -18,6 +18,7 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('user', 'UserController')->only(['index', 'show', 'store', 'update', 'destroy']);
     Route::resource('sensorSetting', 'SensorSettingController')->only(['index', 'show', 'store', 'update', 'destroy']);
+    Route::get("sensorLog/exportToExcel", "SensorLogController@exportToExcel");
     Route::get("sensorLog", "SensorLogController@index");
 });
 
