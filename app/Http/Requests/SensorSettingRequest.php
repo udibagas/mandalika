@@ -28,7 +28,7 @@ class SensorSettingRequest extends FormRequest
             'description' => 'required',
             'min_value' => 'required',
             'max_value' => 'required',
-            'unit' => 'required',
+            // 'unit' => 'required',
             'value_formatter' => 'required'
         ];
     }

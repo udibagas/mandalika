@@ -211,7 +211,7 @@ class SensorSettingSeeder extends Seeder
                 'height' => 2,
                 'min_value' => 0,
                 'max_value' => 255,
-                'unit' => 'km/jam',
+                'unit' => '',
                 'value_formatter' => 'data * 1',
                 'value_description' => json_encode([
                     0 => 'steady',
