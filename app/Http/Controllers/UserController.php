@@ -15,9 +15,13 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return User::orderBy('name', 'asc')->get();
+        return User::orderBy('name', 'asc')
+            ->when($request->keyword, function ($q) use ($request) {
+                return $q->where('name', 'LIKE', '%' . $request->keyword . '%');
+            })
+            ->get();
     }
 
     /**
@@ -62,8 +66,6 @@ class UserController extends Controller
 
         if ($request->passsword) {
             $input['password'] = Hash::make($request->password);
-        } else {
-            unset($input['password']);
         }
 
         $input['api_token'] = Str::random();
@@ -80,6 +82,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return ['message' => 'ok'];
+        return ['message' => 'Data telah dihapus'];
     }
 }

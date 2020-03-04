@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('sensorSetting', 'SensorSettingController')->only(['index', 'show', 'store', 'update', 'destroy']);
     Route::get("sensorLog/exportToExcel", "SensorLogController@exportToExcel");
     Route::get("sensorLog", "SensorLogController@index");
+    Route::get("sensorLog/getLastData", "SensorLogController@getLastData");
 });
 
 Route::get('/{any}', 'HomeController@index')->where('any', '.*');

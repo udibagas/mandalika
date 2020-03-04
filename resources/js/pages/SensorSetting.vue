@@ -1,25 +1,21 @@
 <template>
   <div style="padding:20px">
     <div class="d-flex">
-      <div class="flex-grow-1">
-        <h3>SENSOR SETTING</h3>
-      </div>
-      <div class="flex-grow-0">
-        <el-form inline @submit.native.prevent="() => { return }">
-          <el-form-item>
-            <el-button type="primary" icon="el-icon-plus" @click="openForm({})">TAMBAH SENSOR</el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-input
-              v-model="keyword"
-              placeholder="Cari"
-              prefix-icon="el-icon-search"
-              :clearable="true"
-              @change="(v) => { keyword = v; requestData(); }"
-            ></el-input>
-          </el-form-item>
-        </el-form>
-      </div>
+      <h3 class="flex-grow-1">SENSOR SETTING</h3>
+      <el-form class="flex-grow-0" inline @submit.native.prevent="() => { return }">
+        <el-form-item>
+          <el-button type="primary" icon="el-icon-plus" @click="openForm({})">TAMBAH SENSOR</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-input
+            v-model="keyword"
+            placeholder="Cari"
+            prefix-icon="el-icon-search"
+            :clearable="true"
+            @change="(v) => { keyword = v; requestData(); }"
+          ></el-input>
+        </el-form-item>
+      </el-form>
     </div>
 
     <el-table
@@ -29,7 +25,7 @@
       stripe
       v-loading="loading"
     >
-      <el-table-column type="index" label="#"></el-table-column>
+      <el-table-column prop="id" label="ID" width="60px" sortable="custom"></el-table-column>
       <el-table-column prop="description" label="Keterangan" min-width="150px" sortable="custom"></el-table-column>
       <el-table-column
         prop="parameter"
@@ -144,7 +140,7 @@
           >{{formErrors.value_formatter[0]}}</div>
         </el-form-item>
 
-        <el-form-item
+        <!-- <el-form-item
           label="Keterangan Nilai"
           :class="formErrors.value_formatter ? 'is-error' : ''"
         >
@@ -153,7 +149,7 @@
             class="el-form-item__error"
             v-if="formErrors.value_description"
           >{{formErrors.value_description[0]}}</div>
-        </el-form-item>
+        </el-form-item>-->
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button icon="el-icon-error" @click="showForm = false">BATAL</el-button>
@@ -178,7 +174,7 @@ export default {
       keyword: "",
       tableData: [],
       loading: false,
-      sort: "parameter",
+      sort: "id",
       order: "ascending"
     };
   },

@@ -29,6 +29,9 @@
         <el-form-item>
           <el-button type="primary" icon="el-icon-download" @click="exportToExcel">EXPORT KE EXCEL</el-button>
         </el-form-item>
+        <el-form-item>
+          <el-button type="primary" icon="el-icon-refresh" @click="requestData">REFRESH</el-button>
+        </el-form-item>
       </el-form>
     </div>
 
@@ -42,15 +45,22 @@
       <el-table-column label="Waktu" prop="created_at" sortable="custom">
         <template slot-scope="scope">{{scope.row.created_at | readableDateTime}}</template>
       </el-table-column>
-      <el-table-column prop="setting.description" label="Parameter"></el-table-column>
-      <el-table-column
+      <el-table-column prop="setting.description" label="Parameter">
+        <template slot-scope="scope">
+          {{scope.row.setting.description}}
+          <span
+            v-if="scope.row.ketinggian"
+          >({{scope.row.ketinggian}}m)</span>
+        </template>
+      </el-table-column>
+      <!-- <el-table-column
         prop="ketinggian"
         label="Ketinggian (m)"
         align="center"
         header-align="center"
-      ></el-table-column>
-      <el-table-column prop="nilai" label="Nilai Raw" align="center" header-align="center"></el-table-column>
-      <el-table-column prop="value" label="Nilai Real" align="center" header-align="center"></el-table-column>
+      ></el-table-column>-->
+      <!-- <el-table-column prop="nilai" label="Nilai Raw" align="center" header-align="center"></el-table-column> -->
+      <el-table-column prop="value" label="Nilai" align="center" header-align="center"></el-table-column>
       <el-table-column prop="setting.unit" label="Satuan" align="center" header-align="center"></el-table-column>
     </el-table>
 
@@ -102,12 +112,18 @@ export default {
         .get("sensorLog/exportToExcel", { params })
         .then(r => {
           const data = r.data.map(d => {
+            let parameter = d.setting.description;
+
+            if (d.ketinggian) {
+              parameter += "(" + d.ketinggian + ")";
+            }
+
             return {
               Tanggal: d.created_at,
-              Parameter: d.setting.description,
-              Ketinggian: d.ketinggian,
-              "Nilai Raw": d.nilai,
-              "Nilai Real": d.value,
+              Parameter: parameter,
+              //   Ketinggian: d.ketinggian,
+              //   "Nilai Raw": d.nilai,
+              Nilai: d.value,
               Satuan: d.setting.unit
             };
           });

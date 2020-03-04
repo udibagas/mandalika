@@ -76,10 +76,13 @@ class SensorLogController extends Controller
 
     public function getLastData(Request $request)
     {
-        return SensorLog::where('ketinggian', $request->ketinggian)
-            ->where('parameter', $request->parameter)
-            ->latest()
-            ->first();
+        $data = SensorLog::where('parameter', $request->parameter)->latest()->first();
+
+        if (!$data) {
+            return response(['message' => 'data not found'], 404);
+        }
+
+        return $data;
     }
 
     public function exportToExcel(Request $request)
