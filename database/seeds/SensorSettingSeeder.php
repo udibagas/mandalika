@@ -250,7 +250,7 @@ class SensorSettingSeeder extends Seeder
             [
                 'parameter' => 'data18',
                 'description' => 'Kecepatan angin',
-                'height' => 40,
+                'height' => 2,
                 'min_value' => 0,
                 'max_value' => 255,
                 'unit' => 'mph',

@@ -23,9 +23,13 @@ export default {
         angleAxis: {
           type: "category",
           startAngle: 110,
-          data: ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]
+          data: ["U", "TL", "T", "TG", "S", "BD", "B", "BL"]
         },
-        radiusAxis: {},
+        radiusAxis: {
+          splitLine: {
+            show: false
+          }
+        },
         polar: {},
         title: {
           text: "ARAH ANGIN",
@@ -87,6 +91,6 @@ export default {
 <style lang="scss" scoped>
 .echarts {
   height: 250px;
-  max-width: 300px;
+  max-width: 200px;
 }
 </style>

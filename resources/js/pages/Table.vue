@@ -42,6 +42,7 @@
       @sort-change="sortChange"
       :default-sort="{prop: sort, order: order}"
     >
+      <el-table-column type="index" :index="tableData.from" width="55" label="#"></el-table-column>
       <el-table-column label="Waktu" prop="created_at" sortable="custom">
         <template slot-scope="scope">{{scope.row.created_at | readableDateTime}}</template>
       </el-table-column>

@@ -1,13 +1,41 @@
 <template>
-  <div class="d-flex flex-wrap justify-content-center align-items-start">
-    <Angin class="flex-fill" v-for="i in [100, 70, 40, 10, 2]" :key="i" :height="i" />
-    <Udara class="flex-fill" v-for="i in [100, 10, 2]" :key="i" :height="i" />
-    <Kelembaban class="flex-fill" />
-    <CurahHujan class="flex-fill" />
-    <HujanSaatIni class="flex-fill" />
-    <Penguapan class="flex-fill" />
-    <Uv class="flex-fill" />
-    <RadiasiMatahari class="flex-fill" />
+  <div>
+    <div class="d-flex">
+      <Angin class="flex-fill mr-1" :height="i" v-for="i in [100, 70, 40, 10, 2]" :key="'angin'+i" />
+    </div>
+
+    <el-row :gutter="5">
+      <el-col :span="8" v-for="i in [100, 10, 2]" :key="'udara'+i">
+        <Udara :height="i" />
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="5" style="margin-bottom:5px;">
+      <el-col :span="6">
+        <PrakiraanCuaca />
+      </el-col>
+      <el-col :span="6">
+        <Kelembaban />
+      </el-col>
+      <el-col :span="6">
+        <Uv />
+      </el-col>
+      <el-col :span="6">
+        <RadiasiMatahari />
+      </el-col>
+    </el-row>
+
+    <el-row :gutter="5" style="margin-bottom:5px;">
+      <el-col :span="8">
+        <CurahHujan />
+      </el-col>
+      <el-col :span="8">
+        <HujanSaatIni />
+      </el-col>
+      <el-col :span="8">
+        <Penguapan />
+      </el-col>
+    </el-row>
   </div>
 </template>
 
@@ -20,6 +48,7 @@ import Penguapan from "../components/udara/Penguapan";
 import RadiasiMatahari from "../components/RadiasiMatahari";
 import Uv from "../components/Uv";
 import HujanSaatIni from "../components/HujanSaatIni";
+import PrakiraanCuaca from "../components/PrakiraanCuaca";
 
 export default {
   components: {
@@ -30,7 +59,8 @@ export default {
     Penguapan,
     RadiasiMatahari,
     Uv,
-    HujanSaatIni
+    HujanSaatIni,
+    PrakiraanCuaca
   }
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex">
-    <Kecepatan class="flex-fill" :height="height" />
-    <Arah class="flex-fill" :height="height" />
+  <div>
+    <Kecepatan :height="height" style="margin-bottom:5px;" />
+    <Arah :height="height" style="margin-bottom:5px;" />
   </div>
 </template>
 

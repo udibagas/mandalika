@@ -86,9 +86,9 @@ export default {
       const data = {
         100: "data2",
         70: "data7",
-        40: "data9", //data18 sama
+        40: "data9",
         10: "data11",
-        2: "data20"
+        2: "data18"
       };
       const params = {
         parameter: data[this.height]
@@ -117,6 +117,6 @@ export default {
 <style lang="scss" scoped>
 .echarts {
   height: 250px;
-  max-width: 300px;
+  max-width: 200px;
 }
 </style>

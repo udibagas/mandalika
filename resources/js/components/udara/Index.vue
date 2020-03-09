@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Suhu :height="height" />
-    <Tekanan :height="height" />
+    <Suhu :height="height" style="margin-bottom:5px;" />
+    <Tekanan :height="height" style="margin-bottom:5px;" />
   </div>
 </template>
 
