@@ -14,6 +14,7 @@ export default {
   props: ["height"],
   data() {
     return {
+      fetchInterval: null,
       chartOptions: {
         grid: {
           left: "60px",
@@ -34,7 +35,7 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: ["2PM", "3PM", "4PM", "5PM", "6PM", "7PM"]
+          data: ["00", "01", "02", "03", "04", "05"]
         },
         yAxis: {
           type: "value",
@@ -60,11 +61,42 @@ export default {
               color: "#000",
               fontWeight: "bold"
             },
-            data: [30.12, 29.11, 28.08, 27.17, 26.01, 26.22]
+            data: [0, 0, 0, 0, 0, 0]
           }
         ]
       }
     };
+  },
+  methods: {
+    getData() {
+      const parameter = {
+        100: "data5",
+        10: "data14",
+        2: "data16"
+      };
+
+      const params = {
+        date: moment().format("YYYY-MM-DD"),
+        parameter: parameter[this.height]
+      };
+      axios
+        .get("sensorLog/getTekanan", { params })
+        .then(r => {
+          this.chartOptions.series[0].data = r.data.value;
+          this.chartOptions.xAxis.data = r.data.category;
+        })
+        .catch(e => {
+          this.chartOptions.series[0].data = [0, 0, 0, 0, 0, 0];
+          this.chartOptions.xAxis.data = ["00", "01", "02", "03", "04", "05"];
+        });
+    }
+  },
+  mounted() {
+    this.getData();
+    this.fetchInterval = setInterval(this.getData, 60000);
+  },
+  destroyed() {
+    clearInterval(this.fetchInterval);
   }
 };
 </script>

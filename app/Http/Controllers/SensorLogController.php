@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\SensorLog;
 use App\SensorSetting;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -83,6 +84,28 @@ class SensorLogController extends Controller
         }
 
         return $data;
+    }
+
+    public function getTekanan(Request $request)
+    {
+        $value = [];
+        $category = [];
+
+        $now = Carbon::create(0, 1, 1, date('G'));
+        for ($i = 0; $i < 6; $i++) {
+            $category[] = $now->format('H');
+            $log = SensorLog::where('parameter', $request->parameter)
+                ->whereRaw('DATE(created_at) = ? AND TIME(created_at) = ?', [$request->date, $now->format('H:i:s')])
+                ->first();
+
+            $now->subHour();
+            $value[] = $log ? $log->value : 0;
+        }
+
+        return [
+            'value' => array_reverse($value),
+            'category' => array_reverse($category)
+        ];
     }
 
     public function exportToExcel(Request $request)

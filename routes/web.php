@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get("sensorLog/exportToExcel", "SensorLogController@exportToExcel");
     Route::get("sensorLog", "SensorLogController@index");
     Route::get("sensorLog/getLastData", "SensorLogController@getLastData");
+    Route::get("sensorLog/getTekanan", "SensorLogController@getTekanan");
 });
 
 Route::get('/{any}', 'HomeController@index')->where('any', '.*');
