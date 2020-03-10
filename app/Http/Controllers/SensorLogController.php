@@ -95,7 +95,7 @@ class SensorLogController extends Controller
         for ($i = 0; $i < 6; $i++) {
             $category[] = $now->format('H');
             $log = SensorLog::where('parameter', $request->parameter)
-                ->whereRaw('DATE(created_at) = ? AND TIME(created_at) = ?', [$request->date, $now->format('H:i:s')])
+                ->whereRaw('DATE(created_at) = ? AND HOUR(created_at) = ?', [$request->date, $now->format('H')])
                 ->first();
 
             $now->subHour();
