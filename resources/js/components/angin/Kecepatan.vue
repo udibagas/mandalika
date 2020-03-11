@@ -1,5 +1,9 @@
 <template>
-  <el-card>
+  <el-card class="text-center">
+    <strong>KECEPATAN ANGIN</strong>
+    <br />
+    {{height}}m
+    <br />
     <v-chart :options="chartOptions" class="echarts"></v-chart>
   </el-card>
 </template>
@@ -7,7 +11,7 @@
 <script>
 import "echarts/lib/component/tooltip";
 import "echarts/lib/component/legend";
-import "echarts/lib/component/title";
+// import "echarts/lib/component/title";
 import "echarts/lib/chart/gauge";
 
 export default {
@@ -20,18 +24,18 @@ export default {
           bottom: "0px",
           left: "0px"
         },
-        title: {
-          text: "KECEPATAN ANGIN",
-          subtext: this.height + "m",
-          textStyle: {
-            fontSize: 13
-          },
-          subtextStyle: {
-            color: "#333",
-            fontSize: 13,
-            fontWeight: "bold"
-          }
-        },
+        // title: {
+        //   text: "KECEPATAN ANGIN",
+        //   subtext: this.height + "m",
+        //   textStyle: {
+        //     fontSize: 13
+        //   },
+        //   subtextStyle: {
+        //     color: "#333",
+        //     fontSize: 13,
+        //     fontWeight: "bold"
+        //   }
+        // },
         series: [
           {
             min: 0,
@@ -60,20 +64,15 @@ export default {
                 color: "auto"
               }
             },
-            radius: "70",
-            // center: ["15%", "70%"],
+            radius: "60",
             detail: {
               fontSize: 24,
               fontWeight: "bold",
               color: "#000"
-              // borderWidth: 1,
-              // borderColor: '#ddd',
-              // borderRadius: 2,
             },
             title: {
               offsetCenter: [0, "70%"],
               fontSize: 12
-              // fontWeight: 'bold',
             },
             data: [{ value: 0, name: "mph" }]
           }
@@ -116,7 +115,8 @@ export default {
 
 <style lang="scss" scoped>
 .echarts {
-  height: 250px;
-  max-width: 200px;
+  height: 150px;
+  max-width: 150px;
+  margin: auto;
 }
 </style>

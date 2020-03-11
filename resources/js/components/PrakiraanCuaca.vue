@@ -1,8 +1,8 @@
 <template>
-  <el-card style="height:290px">
-    <strong style="font-size:14px">PRAKIRAAN CUACA</strong>
-    <div class="text-center" style="margin-top:20px">
-      <i :class="icon[nilai] || 'el-icon-error'" style="font-size:120px;"></i>
+  <el-card class="text-center">
+    <strong>PRAKIRAAN CUACA</strong>
+    <div style="margin-top:20px">
+      <i :class="icon[nilai] || 'el-icon-error'" style="font-size:40px;"></i>
       <br />
       <br />
       {{cuaca[nilai] || 'tidak ada data'}}

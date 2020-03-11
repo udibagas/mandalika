@@ -1,5 +1,9 @@
 <template>
-  <el-card>
+  <el-card class="text-center">
+    <strong>ARAH ANGIN</strong>
+    <br />
+    {{height}}m
+    <br />
     <v-chart :options="chartOptions" class="echarts"></v-chart>
   </el-card>
 </template>
@@ -7,7 +11,7 @@
 <script>
 import "echarts/lib/component/tooltip";
 import "echarts/lib/component/legend";
-import "echarts/lib/component/title";
+// import "echarts/lib/component/title";
 import "echarts/lib/chart/gauge";
 import "echarts/lib/component/polar";
 
@@ -31,18 +35,18 @@ export default {
           }
         },
         polar: {},
-        title: {
-          text: "ARAH ANGIN",
-          subtext: this.height + "m",
-          textStyle: {
-            fontSize: 13
-          },
-          subtextStyle: {
-            color: "#333",
-            fontSize: 13,
-            fontWeight: "bold"
-          }
-        },
+        // title: {
+        //   text: "ARAH ANGIN",
+        //   subtext: this.height + "m",
+        //   textStyle: {
+        //     fontSize: 13
+        //   },
+        //   subtextStyle: {
+        //     color: "#333",
+        //     fontSize: 13,
+        //     fontWeight: "bold"
+        //   }
+        // },
         series: [
           {
             type: "bar",
@@ -60,7 +64,7 @@ export default {
       const data = {
         100: "data2",
         70: "data7",
-        40: "data9", //data18 sama
+        40: "data9",
         10: "data11",
         2: "data20"
       };
@@ -92,5 +96,6 @@ export default {
 .echarts {
   height: 250px;
   max-width: 200px;
+  margin: auto;
 }
 </style>

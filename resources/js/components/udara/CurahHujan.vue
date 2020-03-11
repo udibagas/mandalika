@@ -1,5 +1,6 @@
 <template>
-  <el-card>
+  <el-card class="text-center">
+    <strong>CURAH HUJAN</strong>
     <v-chart :options="chartOptions" class="echarts"></v-chart>
   </el-card>
 </template>
@@ -7,7 +8,6 @@
 <script>
 import "echarts/lib/component/tooltip";
 import "echarts/lib/component/legend";
-import "echarts/lib/component/title";
 import "echarts/lib/chart/bar";
 
 export default {
@@ -17,14 +17,9 @@ export default {
       fetchInterval: null,
       chartOptions: {
         grid: {
+          top: "20px",
           left: "70px",
           bottom: "20px"
-        },
-        title: {
-          text: "CURAH HUJAN",
-          textStyle: {
-            fontSize: 13
-          }
         },
         xAxis: {
           type: "category",
@@ -91,7 +86,8 @@ export default {
 
 <style lang="scss" scoped>
 .echarts {
-  height: 250px;
-  max-width: 300px;
+  height: 150px;
+  max-width: 200px;
+  margin: auto;
 }
 </style>

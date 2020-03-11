@@ -35,7 +35,7 @@ export default {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: ["00", "01", "02", "03", "04", "05"]
+          data: ["00:00", "01:00", "02:00", "03:00", "04:00", "05:00"]
         },
         yAxis: {
           type: "value",
@@ -87,7 +87,14 @@ export default {
         })
         .catch(e => {
           this.chartOptions.series[0].data = [0, 0, 0, 0, 0, 0];
-          this.chartOptions.xAxis.data = ["00", "01", "02", "03", "04", "05"];
+          this.chartOptions.xAxis.data = [
+            "00:00",
+            "01:00",
+            "02:00",
+            "03:00",
+            "04:00",
+            "05:00"
+          ];
         });
     }
   },
@@ -105,5 +112,6 @@ export default {
 .echarts {
   height: 250px;
   max-width: 300px;
+  margin: auto;
 }
 </style>

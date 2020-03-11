@@ -4,38 +4,24 @@
       <Angin class="flex-fill mr-1" :height="i" v-for="i in [100, 70, 40, 10, 2]" :key="'angin'+i" />
     </div>
 
-    <el-row :gutter="5">
-      <el-col :span="8" v-for="i in [100, 10, 2]" :key="'udara'+i">
-        <Udara :height="i" />
-      </el-col>
-    </el-row>
+    <div class="d-flex flex-wrap">
+      <Udara class="mr-1 mb-1 flex-fill" v-for="i in [100, 10, 2]" :key="'udara'+i" :height="i" />
+    </div>
 
-    <el-row :gutter="5" style="margin-bottom:5px;">
-      <el-col :span="6">
-        <PrakiraanCuaca />
-      </el-col>
-      <el-col :span="6">
-        <Kelembaban />
-      </el-col>
-      <el-col :span="6">
-        <Uv />
-      </el-col>
-      <el-col :span="6">
-        <RadiasiMatahari />
-      </el-col>
-    </el-row>
-
-    <el-row :gutter="5" style="margin-bottom:5px;">
-      <el-col :span="8">
-        <CurahHujan />
-      </el-col>
-      <el-col :span="8">
-        <HujanSaatIni />
-      </el-col>
-      <el-col :span="8">
-        <Penguapan />
-      </el-col>
-    </el-row>
+    <div class="d-flex flex-wrap">
+      <PrakiraanCuaca class="mr-1 mb-1 flex-fill" />
+      <Kelembaban class="mr-1 mb-1 flex-fill" />
+      <CurahHujan class="mr-1 mb-1 flex-fill" />
+      <Penguapan class="mr-1 mb-1 flex-fill" />
+      <TerbitTerbenam class="mr-1 mb-1 flex-fill" />
+      <Uv class="mr-1 mb-1 flex-fill" />
+      <RadiasiMatahari class="mr-1 mb-1 flex-fill" />
+      <HujanSaatIni class="mr-1 mb-1 flex-fill" />
+      <el-card class="text-center mr-1 mb-1 flex-fill" style="background-color:#DBD9D9">
+        <h6>DEVELOPED BY:</h6>
+        <img src="/images/logo-albani.png" alt />
+      </el-card>
+    </div>
   </div>
 </template>
 
@@ -49,6 +35,7 @@ import RadiasiMatahari from "../components/RadiasiMatahari";
 import Uv from "../components/Uv";
 import HujanSaatIni from "../components/HujanSaatIni";
 import PrakiraanCuaca from "../components/PrakiraanCuaca";
+import TerbitTerbenam from "../components/TerbitTerbenam";
 
 export default {
   components: {
@@ -60,7 +47,8 @@ export default {
     RadiasiMatahari,
     Uv,
     HujanSaatIni,
-    PrakiraanCuaca
+    PrakiraanCuaca,
+    TerbitTerbenam
   }
 };
 </script>

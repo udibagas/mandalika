@@ -93,7 +93,7 @@ class SensorLogController extends Controller
 
         $now = Carbon::create(0, 1, 1, date('G'));
         for ($i = 0; $i < 6; $i++) {
-            $category[] = $now->format('H');
+            $category[] = $now->format('H:i');
             $log = SensorLog::where('parameter', $request->parameter)
                 ->whereRaw('DATE(created_at) = ? AND HOUR(created_at) = ?', [$request->date, $now->format('H')])
                 ->first();
@@ -113,5 +113,16 @@ class SensorLogController extends Controller
         return SensorLog::when($request->dateRange, function ($q) use ($request) {
             return $q->whereRaw('DATE(created_at) BETWEEN ? AND ?', $request->dateRange);
         })->orderBy($request->sort ?: 'created_at', $request->order == 'ascending' ? 'asc' : 'desc')->get();
+    }
+
+    public function getTerbitTerbenam(Request $request)
+    {
+        $data = file_get_contents('https://api.sunrise-sunset.org/json?lat=8.5996&lng=116.1522&formatted=0');
+        $data = json_decode($data);
+
+        return [
+            'terbit' => (new Carbon($data->results->sunrise))->addHours(8)->format('H:i:s'),
+            'terbenam' => (new Carbon($data->results->sunset))->addHours(8)->format('H:i:s'),
+        ];
     }
 }

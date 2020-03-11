@@ -1,5 +1,8 @@
 <template>
-  <el-card>
+  <el-card class="text-center">
+    <strong>KELEMBABAN UDARA</strong>
+    <br />
+    <br />
     <v-chart :options="chartOptions" class="echarts"></v-chart>
   </el-card>
 </template>
@@ -7,7 +10,6 @@
 <script>
 import "echarts/lib/component/tooltip";
 import "echarts/lib/component/legend";
-import "echarts/lib/component/title";
 import "echarts/lib/chart/gauge";
 
 export default {
@@ -16,12 +18,6 @@ export default {
     return {
       fetchInterval: null,
       chartOptions: {
-        title: {
-          text: "KELEMBABAN UDARA",
-          textStyle: {
-            fontSize: 13
-          }
-        },
         series: [
           {
             min: 0,
@@ -49,8 +45,7 @@ export default {
                 color: "auto"
               }
             },
-            radius: "70",
-            // center: ["15%", "70%"],
+            radius: "60",
             detail: {
               formatter: "{value}%",
               fontSize: 22,
@@ -97,7 +92,8 @@ export default {
 
 <style lang="scss" scoped>
 .echarts {
-  height: 250px;
-  max-width: 300px;
+  height: 150px;
+  max-width: 150px;
+  margin: auto;
 }
 </style>

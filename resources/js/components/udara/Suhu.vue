@@ -42,7 +42,7 @@ export default {
           ],
           axisLabel: {
             interval: 0,
-            rotate: 40
+            rotate: this.height == 2 ? 40 : 0
           },
           splitLine: {
             show: false
@@ -87,7 +87,7 @@ export default {
       const data = {
         100: "data3",
         10: "data12",
-        2: "data17" // dalam console, luar console : data22
+        2: "data22" // luar console, dalam console : data17
       };
 
       const params = {
@@ -98,15 +98,13 @@ export default {
         .get("sensorLog/getLastData", { params })
         .then(r => {
           this.chartOptions.series[0].data[0].value = r.data.value;
-          this.chartOptions.series[0].data[4].value = r.data.value;
         })
         .catch(e => {
           this.chartOptions.series[0].data[0].value = 0;
-          this.chartOptions.series[0].data[4].value = 0;
         });
     },
-    getDewPoint() {
-      const params = { parameter: "data35" };
+    getInsideTemperatur() {
+      const params = { parameter: "data17" };
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
@@ -114,6 +112,17 @@ export default {
         })
         .catch(e => {
           this.chartOptions.series[0].data[3].value = 0;
+        });
+    },
+    getDewPoint() {
+      const params = { parameter: "data35" };
+      axios
+        .get("sensorLog/getLastData", { params })
+        .then(r => {
+          this.chartOptions.series[0].data[4].value = r.data.value;
+        })
+        .catch(e => {
+          this.chartOptions.series[0].data[4].value = 0;
         });
     },
     getHeatIndex() {
@@ -141,15 +150,32 @@ export default {
   },
   created() {
     this.getData();
-    this.getDewPoint();
-    this.getHeatIndex();
-    this.getWindChill();
 
-    this.fetchInterval = setInterval(() => {
-      this.getData();
+    if (this.height == 2) {
+      this.chartOptions.xAxis.data = [
+        "Outside Temp",
+        "Wind Chill",
+        "Heat Index",
+        "Dew Point",
+        "Inside Temp"
+      ];
+
       this.getDewPoint();
       this.getHeatIndex();
       this.getWindChill();
+      this.getInsideTemperatur();
+    } else {
+      this.chartOptions.xAxis.data = ["Outside Temp"];
+    }
+
+    this.fetchInterval = setInterval(() => {
+      this.getData();
+      if (this.height == 2) {
+        this.getDewPoint();
+        this.getHeatIndex();
+        this.getWindChill();
+        this.getInsideTemperatur();
+      }
     }, 60000);
   },
   destroyed() {
@@ -162,5 +188,6 @@ export default {
 .echarts {
   height: 250px;
   max-width: 300px;
+  margin: auto;
 }
 </style>

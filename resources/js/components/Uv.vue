@@ -1,5 +1,8 @@
 <template>
-  <el-card>
+  <el-card class="text-center">
+    <strong>UV</strong>
+    <br />
+    <br />
     <v-chart :options="chartOptions" class="echarts"></v-chart>
   </el-card>
 </template>
@@ -16,12 +19,12 @@ export default {
     return {
       fetchInterval: null,
       chartOptions: {
-        title: {
-          text: "UV",
-          textStyle: {
-            fontSize: 13
-          }
-        },
+        // title: {
+        //   text: "UV",
+        //   textStyle: {
+        //     fontSize: 13
+        //   }
+        // },
         series: [
           {
             min: 0,
@@ -49,8 +52,7 @@ export default {
                 color: "auto"
               }
             },
-            radius: "70",
-            // center: ["15%", "70%"],
+            radius: "60",
             detail: {
               fontSize: 24,
               fontWeight: "bold",
@@ -91,7 +93,8 @@ export default {
 
 <style lang="scss" scoped>
 .echarts {
-  height: 250px;
-  max-width: 300px;
+  height: 150px;
+  max-width: 150px;
+  margin: auto;
 }
 </style>

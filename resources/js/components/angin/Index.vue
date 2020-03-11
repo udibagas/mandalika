@@ -1,7 +1,10 @@
 <template>
-  <div>
-    <Kecepatan :height="height" style="margin-bottom:5px;" />
-    <Arah :height="height" style="margin-bottom:5px;" />
+  <div class="d-flex">
+    <Log :height="height" class="mb-1 mr-1" />
+    <div>
+      <Kecepatan :height="height" class="mb-1" />
+      <Arah :height="height" class="mb-1" />
+    </div>
   </div>
 </template>
 
