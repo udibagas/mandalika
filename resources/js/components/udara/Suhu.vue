@@ -1,5 +1,11 @@
 <template>
   <el-card>
+    <div class="text-right">
+      <el-radio-group v-model="unit" size="mini">
+        <el-radio-button label="F"></el-radio-button>
+        <el-radio-button label="C"></el-radio-button>
+      </el-radio-group>
+    </div>
     <v-chart :options="chartOptions" class="echarts"></v-chart>
   </el-card>
 </template>
@@ -12,8 +18,29 @@ import "echarts/lib/chart/bar";
 
 export default {
   props: ["height"],
+  watch: {
+    unit(v, o) {
+      this.chartOptions.series[0].data = this.chartOptions.series[0].data.map(
+        d => {
+          if (v == "C" && o == "F") {
+            d.value = Math.round((d.value - 32) * (5 / 9));
+          } else {
+            d.value = Math.round(d.value * (9 / 5) + 32);
+          }
+          return d;
+        }
+      );
+
+      if (v == "C" && o == "F") {
+        this.chartOptions.yAxis.axisLabel.formatter = "{value} °C";
+      } else {
+        this.chartOptions.yAxis.axisLabel.formatter = "{value} °F";
+      }
+    }
+  },
   data() {
     return {
+      unit: "F",
       fetchInterval: null,
       chartOptions: {
         grid: {
@@ -83,6 +110,7 @@ export default {
     };
   },
   methods: {
+    convert() {},
     getData() {
       const data = {
         100: "data3",
