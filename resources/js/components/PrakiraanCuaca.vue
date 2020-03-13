@@ -1,5 +1,5 @@
 <template>
-  <el-card class="text-center">
+  <el-card class="text-center" style="width:200px">
     <strong>PRAKIRAAN CUACA</strong>
     <div style="margin-top:20px">
       <i :class="icon[nilai] || 'el-icon-error'" style="font-size:40px;"></i>

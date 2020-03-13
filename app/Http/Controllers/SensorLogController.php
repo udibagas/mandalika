@@ -99,7 +99,7 @@ class SensorLogController extends Controller
                 ->first();
 
             $now->subHour();
-            $value[] = $log ? $log->value : 0;
+            $value[] = $log ? $log->value : null;
         }
 
         return [

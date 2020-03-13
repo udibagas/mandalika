@@ -1,5 +1,11 @@
 <template>
   <el-card>
+    <div class="text-right">
+      <el-radio-group v-model="unit" size="mini">
+        <el-radio-button label="inHg"></el-radio-button>
+        <el-radio-button label="hPa"></el-radio-button>
+      </el-radio-group>
+    </div>
     <v-chart :options="chartOptions" class="echarts"></v-chart>
   </el-card>
 </template>
@@ -12,8 +18,14 @@ import "echarts/lib/chart/line";
 
 export default {
   props: ["height"],
+  watch: {
+    unit(v, o) {
+      this.chartOptions.yAxis.axisLabel.formatter = "{value} " + v;
+    }
+  },
   data() {
     return {
+      unit: "inHg",
       fetchInterval: null,
       chartOptions: {
         grid: {
@@ -39,11 +51,9 @@ export default {
         },
         yAxis: {
           type: "value",
-          min: 20,
-          max: 32,
           splitNumber: 5,
           axisLabel: {
-            formatter: "{value} in Hg"
+            formatter: "{value} inHg"
           }
         },
         axisLine: {
@@ -61,13 +71,16 @@ export default {
               color: "#000",
               fontWeight: "bold"
             },
-            data: [0, 0, 0, 0, 0, 0]
+            data: [NaN, NaN, NaN, NaN, NaN, NaN]
           }
         ]
       }
     };
   },
   methods: {
+    convert(v) {
+      return this.unit == "hPa" ? v.map(x => Math.round(x * 33.86389)) : v;
+    },
     getData() {
       const parameter = {
         100: "data5",
@@ -82,11 +95,11 @@ export default {
       axios
         .get("sensorLog/getTekanan", { params })
         .then(r => {
-          this.chartOptions.series[0].data = r.data.value;
+          this.chartOptions.series[0].data = this.convert(r.data.value);
           this.chartOptions.xAxis.data = r.data.category;
         })
         .catch(e => {
-          this.chartOptions.series[0].data = [0, 0, 0, 0, 0, 0];
+          this.chartOptions.series[0].data = [NaN, NaN, NaN, NaN, NaN, NaN];
           this.chartOptions.xAxis.data = [
             "00:00",
             "01:00",

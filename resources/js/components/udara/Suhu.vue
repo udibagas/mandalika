@@ -20,22 +20,7 @@ export default {
   props: ["height"],
   watch: {
     unit(v, o) {
-      this.chartOptions.series[0].data = this.chartOptions.series[0].data.map(
-        d => {
-          if (v == "C" && o == "F") {
-            d.value = Math.round((d.value - 32) * (5 / 9));
-          } else {
-            d.value = Math.round(d.value * (9 / 5) + 32);
-          }
-          return d;
-        }
-      );
-
-      if (v == "C" && o == "F") {
-        this.chartOptions.yAxis.axisLabel.formatter = "{value} °C";
-      } else {
-        this.chartOptions.yAxis.axisLabel.formatter = "{value} °F";
-      }
+      this.chartOptions.yAxis.axisLabel.formatter = "{value} °" + v;
     }
   },
   data() {
@@ -96,11 +81,11 @@ export default {
               fontWeight: "bold"
             },
             data: [
-              { value: 0, itemStyle: { color: "#c52728" } },
-              { value: 0, itemStyle: { color: "#3387c3" } },
-              { value: 0, itemStyle: { color: "#e88021" } },
-              { value: 0, itemStyle: { color: "#38926e" } },
-              { value: 0, itemStyle: { color: "#55a9ce" } }
+              { value: NaN, itemStyle: { color: "#c52728" } },
+              { value: NaN, itemStyle: { color: "#3387c3" } },
+              { value: NaN, itemStyle: { color: "#e88021" } },
+              { value: NaN, itemStyle: { color: "#38926e" } },
+              { value: NaN, itemStyle: { color: "#55a9ce" } }
             ]
           }
         ]
@@ -108,12 +93,14 @@ export default {
     };
   },
   methods: {
-    convert() {},
+    convert(v) {
+      return this.unit == "C" ? Math.round((v - 32) * (5 / 9)) : v;
+    },
     getData() {
       const data = {
         100: "data3",
         10: "data12",
-        2: "data22" // luar console, dalam console : data17
+        2: "data22"
       };
 
       const params = {
@@ -123,10 +110,12 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[0].value = r.data.value;
+          this.chartOptions.series[0].data[0].value = this.convert(
+            r.data.value
+          );
         })
         .catch(e => {
-          this.chartOptions.series[0].data[0].value = 0;
+          this.chartOptions.series[0].data[0].value = NaN;
         });
     },
     getInsideTemperatur() {
@@ -134,10 +123,12 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[3].value = r.data.value;
+          this.chartOptions.series[0].data[3].value = this.convert(
+            r.data.value
+          );
         })
         .catch(e => {
-          this.chartOptions.series[0].data[3].value = 0;
+          this.chartOptions.series[0].data[3].value = NaN;
         });
     },
     getDewPoint() {
@@ -145,10 +136,12 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[4].value = r.data.value;
+          this.chartOptions.series[0].data[4].value = this.convert(
+            r.data.value
+          );
         })
         .catch(e => {
-          this.chartOptions.series[0].data[4].value = 0;
+          this.chartOptions.series[0].data[4].value = NaN;
         });
     },
     getHeatIndex() {
@@ -156,10 +149,12 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[2].value = r.data.value;
+          this.chartOptions.series[0].data[2].value = this.convert(
+            r.data.value
+          );
         })
         .catch(e => {
-          this.chartOptions.series[0].data[2].value = 0;
+          this.chartOptions.series[0].data[2].value = NaN;
         });
     },
     getWindChill() {
@@ -167,16 +162,16 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[1].value = r.data.value;
+          this.chartOptions.series[0].data[1].value = this.convert(
+            r.data.value
+          );
         })
         .catch(e => {
-          this.chartOptions.series[0].data[1].value = 0;
+          this.chartOptions.series[0].data[1].value = NaN;
         });
     }
   },
   created() {
-    this.getData();
-
     if (this.height == 2) {
       this.chartOptions.xAxis.data = [
         "Outside Temp",
@@ -193,6 +188,8 @@ export default {
     } else {
       this.chartOptions.xAxis.data = ["Outside Temp"];
     }
+
+    this.getData();
 
     this.fetchInterval = setInterval(() => {
       this.getData();

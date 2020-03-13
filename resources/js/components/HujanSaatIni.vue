@@ -31,8 +31,6 @@ export default {
         yAxis: {
           type: "value",
           splitNumber: 5,
-          min: 0,
-          max: 5,
           axisLabel: {
             formatter: "{value} in³/jam"
           }
