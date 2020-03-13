@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <div class="text-right">
-      <el-radio-group v-model="unit" size="mini">
+      <el-radio-group v-model="unit" size="mini" @change="requestData">
         <el-radio-button label="F"></el-radio-button>
         <el-radio-button label="C"></el-radio-button>
       </el-radio-group>
@@ -18,11 +18,6 @@ import "echarts/lib/chart/bar";
 
 export default {
   props: ["height"],
-  watch: {
-    unit(v, o) {
-      this.chartOptions.yAxis.axisLabel.formatter = "{value} °" + v;
-    }
-  },
   data() {
     return {
       unit: "F",
@@ -64,7 +59,7 @@ export default {
           type: "value",
           splitNumber: 5,
           axisLabel: {
-            formatter: "{value} °F"
+            formatter: "{value}"
           }
         },
         axisLine: {
@@ -93,103 +88,86 @@ export default {
     };
   },
   methods: {
-    convert(v) {
-      return this.unit == "C" ? Math.round((v - 32) * (5 / 9)) : v;
-    },
     getData() {
-      const data = {
-        100: "data3",
-        10: "data12",
-        2: "data22"
-      };
-
-      const params = {
-        parameter: data[this.height]
-      };
+      const data = { 100: "data3", 10: "data12", 2: "data22" };
+      const params = { parameter: data[this.height], unit: this.unit };
 
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[0].value = this.convert(
-            r.data.value
-          );
+          this.chartOptions.series[0].data[0].value = r.data.value;
         })
         .catch(e => {
           this.chartOptions.series[0].data[0].value = NaN;
         });
     },
     getInsideTemperatur() {
-      const params = { parameter: "data17" };
+      const params = { parameter: "data17", unit: this.unit };
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[3].value = this.convert(
-            r.data.value
-          );
+          this.chartOptions.series[0].data[3].value = r.data.value;
         })
         .catch(e => {
           this.chartOptions.series[0].data[3].value = NaN;
         });
     },
     getDewPoint() {
-      const params = { parameter: "data35" };
+      const params = { parameter: "data35", unit: this.unit };
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[4].value = this.convert(
-            r.data.value
-          );
+          this.chartOptions.series[0].data[4].value = r.data.value;
         })
         .catch(e => {
           this.chartOptions.series[0].data[4].value = NaN;
         });
     },
     getHeatIndex() {
-      const params = { parameter: "data36" };
+      const params = { parameter: "data36", unit: this.unit };
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[2].value = this.convert(
-            r.data.value
-          );
+          this.chartOptions.series[0].data[2].value = r.data.value;
         })
         .catch(e => {
           this.chartOptions.series[0].data[2].value = NaN;
         });
     },
     getWindChill() {
-      const params = { parameter: "data37" };
+      const params = { parameter: "data37", unit: this.unit };
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[1].value = this.convert(
-            r.data.value
-          );
+          this.chartOptions.series[0].data[1].value = r.data.value;
         })
         .catch(e => {
           this.chartOptions.series[0].data[1].value = NaN;
         });
+    },
+    requestData() {
+      if (this.height == 2) {
+        this.chartOptions.xAxis.data = [
+          "Outside Temp",
+          "Wind Chill",
+          "Heat Index",
+          "Dew Point",
+          "Inside Temp"
+        ];
+
+        this.getDewPoint();
+        this.getHeatIndex();
+        this.getWindChill();
+        this.getInsideTemperatur();
+      } else {
+        this.chartOptions.xAxis.data = ["Outside Temp"];
+      }
+
+      this.getData();
     }
   },
   created() {
-    if (this.height == 2) {
-      this.chartOptions.xAxis.data = [
-        "Outside Temp",
-        "Wind Chill",
-        "Heat Index",
-        "Dew Point",
-        "Inside Temp"
-      ];
-
-      this.getDewPoint();
-      this.getHeatIndex();
-      this.getWindChill();
-      this.getInsideTemperatur();
-    } else {
-      this.chartOptions.xAxis.data = ["Outside Temp"];
-    }
-
-    this.getData();
+    this.requestData();
 
     this.fetchInterval = setInterval(() => {
       this.getData();

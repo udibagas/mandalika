@@ -72,6 +72,10 @@ class SensorLogController extends Controller
             return response(['message' => 'data not found'], 404);
         }
 
+        if ($request->unit == 'C') {
+            $data->value = ($data->value - 32) * 5 / 9;
+        }
+
         return $data;
     }
 
