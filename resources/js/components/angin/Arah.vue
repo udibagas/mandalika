@@ -98,7 +98,7 @@ export default {
           if (value == 0) {
             this.chartOptions.series[0].data = [0, 0, 0, 0, 0, 0, 0, 0];
           } else {
-            this.chartOptions.series[0].data[index] = value;
+            this.chartOptions.series[0].data[index] = 1;
           }
         })
         .catch(e => {
