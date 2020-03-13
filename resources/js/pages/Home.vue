@@ -10,7 +10,12 @@
 
     <div class="d-flex flex-wrap">
       <PrakiraanCuaca class="mr-1 mb-1 flex-fill" />
-      <Kelembaban class="mr-1 mb-1 flex-fill" />
+      <Kelembaban
+        v-for="d in ['data4', 'data13', 'data21', 'data23']"
+        :key="d"
+        class="mr-1 mb-1 flex-fill"
+        :parameter="d"
+      />
       <CurahHujan class="mr-1 mb-1 flex-fill" />
       <Penguapan class="mr-1 mb-1 flex-fill" />
       <TerbitTerbenam class="mr-1 mb-1 flex-fill" />

@@ -2,6 +2,7 @@
   <el-card class="text-center">
     <strong>KELEMBABAN UDARA</strong>
     <br />
+    {{parameters[parameter]}}
     <br />
     <v-chart :options="chartOptions" class="echarts"></v-chart>
   </el-card>
@@ -13,9 +14,15 @@ import "echarts/lib/component/legend";
 import "echarts/lib/chart/gauge";
 
 export default {
-  props: ["height"],
+  props: ["parameter"],
   data() {
     return {
+      parameters: {
+        data4: "100m",
+        data13: "10m",
+        data21: "2m (dalam console)",
+        data23: "2m (luar console)"
+      },
       fetchInterval: null,
       chartOptions: {
         series: [
@@ -60,15 +67,7 @@ export default {
   },
   methods: {
     getData() {
-      const data = {
-        100: "data4",
-        10: "data13",
-        2: "data21" // dalam console, luar console : data23
-      };
-
-      const params = {
-        parameter: data[this.height]
-      };
+      const params = { parameter: this.parameter };
 
       axios
         .get("sensorLog/getLastData", { params })
