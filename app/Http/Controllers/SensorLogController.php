@@ -73,7 +73,7 @@ class SensorLogController extends Controller
         }
 
         if ($request->unit == 'C') {
-            $data->value = ($data->value - 32) * 5 / 9;
+            $data->value = round(($data->value - 32) * 5 / 9, 1);
         }
 
         return $data;
