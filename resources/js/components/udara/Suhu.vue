@@ -78,8 +78,6 @@ export default {
         yAxis: {
           type: "value",
           splitNumber: 5,
-          min: 0,
-          max: 100,
           axisLabel: {
             formatter: "{value} °F"
           }
