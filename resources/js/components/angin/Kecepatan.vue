@@ -5,6 +5,11 @@
     {{height}}m
     <br />
     <v-chart :options="chartOptions" class="echarts"></v-chart>
+
+    <el-radio-group v-model="unit" size="mini" @change="getData">
+      <el-radio-button label="mph"></el-radio-button>
+      <el-radio-button label="km/h"></el-radio-button>
+    </el-radio-group>
   </el-card>
 </template>
 
@@ -18,6 +23,7 @@ export default {
   props: ["height"],
   data() {
     return {
+      unit: "mph",
       fetchInterval: null,
       chartOptions: {
         grid: {
@@ -66,15 +72,15 @@ export default {
             },
             radius: "60",
             detail: {
-              fontSize: 24,
-              fontWeight: "bold",
+              fontSize: 16,
+              //   fontWeight: "bold",
               color: "#000"
             },
             title: {
               offsetCenter: [0, "70%"],
               fontSize: 12
             },
-            data: [{ value: 0, name: "mph" }]
+            data: [{ value: NaN }]
           }
         ]
       }
@@ -96,10 +102,10 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[0].value = r.data.value;
+          this.chartOptions.series[0].data[0].value = r.data;
         })
         .catch(e => {
-          this.chartOptions.series[0].data[0].value = 0;
+          this.chartOptions.series[0].data[0].value = NaN;
         });
     }
   },
