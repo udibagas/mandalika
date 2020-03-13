@@ -69,7 +69,7 @@ export default {
           let index = 0;
           const value = r.data.value;
 
-          if (value >= 22.5 && value <= 67.5) {
+          if (value >= 22.5 && value < 67.5) {
             // timur laut
             index = 1;
           } else if (value >= 67.5 && value < 112.5) {
@@ -87,7 +87,7 @@ export default {
           } else if (value >= 292.5 && value < 292.5) {
             // barat
             index = 6;
-          } else if (value >= 337.5 && value <= 337.5) {
+          } else if (value >= 337.5 && value < 337.5) {
             // barat laut
             index = 7;
           } else {
