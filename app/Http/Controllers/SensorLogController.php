@@ -94,7 +94,7 @@ class SensorLogController extends Controller
                 continue;
             }
 
-            $value[] = $request->unit == 'hPa' ? round($log->value * 33.86389, 2) : $log->value;
+            $value[] = $request->unit == 'hPa' ? round($log->value * 33.86389) : round($log->value);
         }
 
         return [
