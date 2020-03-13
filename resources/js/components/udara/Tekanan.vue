@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <div class="text-right">
-      <el-radio-group v-model="unit" size="mini">
+      <el-radio-group v-model="unit" size="mini" @change="getData">
         <el-radio-button label="inHg"></el-radio-button>
         <el-radio-button label="hPa"></el-radio-button>
       </el-radio-group>
@@ -18,14 +18,6 @@ import "echarts/lib/chart/line";
 
 export default {
   props: ["height"],
-  watch: {
-    unit(v, o) {
-      this.chartOptions.yAxis.axisLabel.formatter = "{value} " + v;
-      this.chartOptions.series[0].data = this.convert(
-        this.chartOptions.series[0].data
-      );
-    }
-  },
   data() {
     return {
       unit: "inHg",
@@ -56,7 +48,7 @@ export default {
           type: "value",
           splitNumber: 5,
           axisLabel: {
-            formatter: "{value} inHg"
+            formatter: "{value}"
           }
         },
         axisLine: {
@@ -80,9 +72,6 @@ export default {
     };
   },
   methods: {
-    convert(v) {
-      return this.unit == "hPa" ? v.map(x => Math.round(x * 33.86389)) : v;
-    },
     getData() {
       const parameter = {
         100: "data5",
@@ -92,12 +81,13 @@ export default {
 
       const params = {
         date: moment().format("YYYY-MM-DD"),
-        parameter: parameter[this.height]
+        parameter: parameter[this.height],
+        unit: this.unit
       };
       axios
         .get("sensorLog/getTekanan", { params })
         .then(r => {
-          this.chartOptions.series[0].data = this.convert(r.data.value);
+          this.chartOptions.series[0].data = r.data.value;
           this.chartOptions.xAxis.data = r.data.category;
         })
         .catch(e => {

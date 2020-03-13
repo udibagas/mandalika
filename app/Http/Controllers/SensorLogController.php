@@ -64,17 +64,6 @@ class SensorLogController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
     public function getLastData(Request $request)
     {
         $data = SensorLog::where('parameter', $request->parameter)->latest()->first();
@@ -99,12 +88,19 @@ class SensorLogController extends Controller
                 ->first();
 
             $now->subHour();
-            $value[] = $log ? $log->value : null;
+
+            if (!$log) {
+                $value[] = null;
+                continue;
+            }
+
+            $value[] = $request->unit == 'hPa' ? round($log->value * 33.86389, 2) : $log->value;
         }
 
         return [
             'value' => array_reverse($value),
-            'category' => array_reverse($category)
+            'category' => array_reverse($category),
+            'unit' => $request->unit ?: 'inHg'
         ];
     }
 
