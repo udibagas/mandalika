@@ -95,7 +95,7 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[0].value = r.data.value;
+          this.chartOptions.series[0].data[0].value = r.data;
         })
         .catch(e => {
           this.chartOptions.series[0].data[0].value = NaN;
@@ -106,7 +106,7 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[3].value = r.data.value;
+          this.chartOptions.series[0].data[3].value = r.data;
         })
         .catch(e => {
           this.chartOptions.series[0].data[3].value = NaN;
@@ -117,7 +117,7 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[4].value = r.data.value;
+          this.chartOptions.series[0].data[4].value = r.data;
         })
         .catch(e => {
           this.chartOptions.series[0].data[4].value = NaN;
@@ -128,7 +128,7 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[2].value = r.data.value;
+          this.chartOptions.series[0].data[2].value = r.data;
         })
         .catch(e => {
           this.chartOptions.series[0].data[2].value = NaN;
@@ -139,7 +139,7 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[1].value = r.data.value;
+          this.chartOptions.series[0].data[1].value = r.data;
         })
         .catch(e => {
           this.chartOptions.series[0].data[1].value = NaN;
