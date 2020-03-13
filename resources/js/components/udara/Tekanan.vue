@@ -21,12 +21,14 @@ export default {
   watch: {
     unit(v, o) {
       this.chartOptions.yAxis.axisLabel.formatter = "{value} " + v;
+      this.chartOptions.series[0].data = this.convert(
+        this.chartOptions.series[0].data
+      );
     }
   },
   data() {
     return {
       unit: "inHg",
-      data: [NaN, NaN, NaN, NaN, NaN, NaN],
       fetchInterval: null,
       chartOptions: {
         grid: {
@@ -65,14 +67,13 @@ export default {
         series: [
           {
             type: "line",
-            // color: '#000',
             label: {
               show: true,
               position: "top",
               color: "#000",
               fontWeight: "bold"
             },
-            data: this.convert(this.data)
+            data: [NaN, NaN, NaN, NaN, NaN, NaN]
           }
         ]
       }
@@ -96,11 +97,11 @@ export default {
       axios
         .get("sensorLog/getTekanan", { params })
         .then(r => {
-          this.data = r.data.value;
+          this.chartOptions.series[0].data = this.convert(r.data.value);
           this.chartOptions.xAxis.data = r.data.category;
         })
         .catch(e => {
-          this.data = [NaN, NaN, NaN, NaN, NaN, NaN];
+          this.chartOptions.series[0].data = [NaN, NaN, NaN, NaN, NaN, NaN];
           this.chartOptions.xAxis.data = [
             "00:00",
             "01:00",
