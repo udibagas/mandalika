@@ -96,7 +96,8 @@ export default {
         2: "data18"
       };
       const params = {
-        parameter: data[this.height]
+        parameter: data[this.height],
+        unit: this.unit
       };
 
       axios
