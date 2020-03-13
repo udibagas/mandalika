@@ -26,6 +26,7 @@ export default {
   data() {
     return {
       unit: "inHg",
+      data: [NaN, NaN, NaN, NaN, NaN, NaN],
       fetchInterval: null,
       chartOptions: {
         grid: {
@@ -71,7 +72,7 @@ export default {
               color: "#000",
               fontWeight: "bold"
             },
-            data: [NaN, NaN, NaN, NaN, NaN, NaN]
+            data: this.convert(this.data)
           }
         ]
       }
@@ -95,11 +96,11 @@ export default {
       axios
         .get("sensorLog/getTekanan", { params })
         .then(r => {
-          this.chartOptions.series[0].data = this.convert(r.data.value);
+          this.data = r.data.value;
           this.chartOptions.xAxis.data = r.data.category;
         })
         .catch(e => {
-          this.chartOptions.series[0].data = [NaN, NaN, NaN, NaN, NaN, NaN];
+          this.data = [NaN, NaN, NaN, NaN, NaN, NaN];
           this.chartOptions.xAxis.data = [
             "00:00",
             "01:00",
