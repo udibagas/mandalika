@@ -55,8 +55,8 @@ export default {
             radius: "60",
             detail: {
               formatter: "{value}%",
-              fontSize: 22,
-              fontWeight: "bold",
+              fontSize: 16,
+              //   fontWeight: "bold",
               color: "#000"
             },
             data: [{ value: 0 }]

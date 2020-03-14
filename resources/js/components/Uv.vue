@@ -54,8 +54,8 @@ export default {
             },
             radius: "60",
             detail: {
-              fontSize: 24,
-              fontWeight: "bold",
+              fontSize: 16,
+              //   fontWeight: "bold",
               color: "#000"
             },
             title: {
