@@ -74,9 +74,11 @@ export default {
         .get("sensorLog/getLastData", { params })
         .then(r => {
           this.chartOptions.series[0].data[0].value = r.data;
+          this.$store.commit("setKelembaban", r.data);
         })
         .catch(e => {
           this.chartOptions.series[0].data[0].value = NaN;
+          this.$store.commit("setKelembaban", NaN);
         });
     }
   },

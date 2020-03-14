@@ -2,8 +2,10 @@
   <el-card class="text-center" style="width:200px">
     <strong>PRAKIRAAN CUACA</strong>
     <div style="margin-top:20px">
-      <i :class="icon[nilai] || 'el-icon-error'" style="font-size:80px;"></i>
+      <i :class="icon[nilai] || 'el-icon-warning-outline'" style="font-size:80px;"></i>
       <br />
+      <br />
+      <strong>{{suhu}} &deg;{{unit}} | {{kelembaban}}%</strong>
       <br />
       {{cuaca[nilai] || 'tidak ada data'}}
     </div>
@@ -12,6 +14,17 @@
 
 <script>
 export default {
+  computed: {
+    kelembaban() {
+      return this.$store.state.kelembaban;
+    },
+    suhu() {
+      return this.$store.state.suhu;
+    },
+    unit() {
+      return this.$store.state.unit;
+    }
+  },
   data() {
     return {
       nilai: 0,

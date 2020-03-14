@@ -96,9 +96,16 @@ export default {
         .get("sensorLog/getLastData", { params })
         .then(r => {
           this.chartOptions.series[0].data[0].value = r.data;
+          if (this.height == 100) {
+            this.$store.commit("setSuhu", r.data);
+            this.$store.commit("setUnit", unit);
+          }
         })
         .catch(e => {
           this.chartOptions.series[0].data[0].value = NaN;
+          if (this.height == 100) {
+            this.$store.commit("setSuhu", NaN);
+          }
         });
     },
     getInsideTemperatur() {

@@ -5,9 +5,25 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-
+        // untuk prakiraan cuaca
+        suhu: NaN,
+        kelembaban: NaN,
+        unit: 'F',
+        // untuk di header
+        last_update: null
     },
     mutations: {
-
+        setSuhu(state, suhu) {
+            state.suhu = suhu
+        },
+        setKelembaban(state, kelembaban) {
+            state.kelembaban = kelembaban
+        },
+        setUnit(state, unit) {
+            state.unit = unit
+        },
+        setLastUpdate(state, last_update) {
+            state.last_update = last_update
+        }
     }
 })
