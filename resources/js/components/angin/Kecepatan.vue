@@ -14,9 +14,6 @@
 </template>
 
 <script>
-import "echarts/lib/component/tooltip";
-import "echarts/lib/component/legend";
-// import "echarts/lib/component/title";
 import "echarts/lib/chart/gauge";
 
 export default {
@@ -26,22 +23,6 @@ export default {
       unit: "mph",
       fetchInterval: null,
       chartOptions: {
-        grid: {
-          bottom: "0px",
-          left: "0px"
-        },
-        // title: {
-        //   text: "KECEPATAN ANGIN",
-        //   subtext: this.height + "m",
-        //   textStyle: {
-        //     fontSize: 13
-        //   },
-        //   subtextStyle: {
-        //     color: "#333",
-        //     fontSize: 13,
-        //     fontWeight: "bold"
-        //   }
-        // },
         series: [
           {
             min: 0,

@@ -8,9 +8,6 @@
 </template>
 
 <script>
-import "echarts/lib/component/tooltip";
-import "echarts/lib/component/legend";
-import "echarts/lib/component/title";
 import "echarts/lib/chart/gauge";
 
 export default {
@@ -19,12 +16,6 @@ export default {
     return {
       fetchInterval: null,
       chartOptions: {
-        // title: {
-        //   text: "UV",
-        //   textStyle: {
-        //     fontSize: 13
-        //   }
-        // },
         series: [
           {
             min: 0,
@@ -55,7 +46,6 @@ export default {
             radius: "70",
             detail: {
               fontSize: 22,
-              //   fontWeight: "bold",
               color: "#000",
               offsetCenter: [0, "65%"]
             },

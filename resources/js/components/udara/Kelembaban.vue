@@ -10,8 +10,6 @@
 </template>
 
 <script>
-import "echarts/lib/component/tooltip";
-import "echarts/lib/component/legend";
 import "echarts/lib/chart/gauge";
 
 export default {
@@ -37,7 +35,6 @@ export default {
             splitNumber: 5,
             axisLine: {
               lineStyle: {
-                // color: [[0.2, '#28b573'], [0.8, '#28b573'], [1, '#28b573']],
                 width: 7
               }
             },

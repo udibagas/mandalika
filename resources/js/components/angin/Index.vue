@@ -1,9 +1,9 @@
 <template>
   <div class="d-flex">
-    <Log :height="height" class="mb-1 mr-1" />
+    <Log :height="height" class="flex-fill mb-1 mr-1" />
     <div>
-      <Kecepatan :height="height" class="mb-1" />
-      <Arah :height="height" class="mb-1" />
+      <Kecepatan :height="height" class="flex-fill mb-1" />
+      <Arah :height="height" class="flex-fill mb-1" />
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="d-flex">
+    <div class="d-flex flex-wrap">
       <Angin class="flex-fill mr-1" :height="i" v-for="i in [100, 70, 40, 10, 2]" :key="'angin'+i" />
     </div>
 

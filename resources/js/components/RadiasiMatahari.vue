@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import "echarts/lib/component/tooltip";
-import "echarts/lib/component/legend";
 import "echarts/lib/chart/gauge";
 
 export default {
