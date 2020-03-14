@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     getData(data, index) {
-      const params = { parameter: data };
+      const params = { parameter: data, unit: this.unit };
 
       axios
         .get("sensorLog/getLastData", { params })
