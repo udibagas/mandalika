@@ -70,15 +70,11 @@ export default {
                 color: "auto"
               }
             },
-            radius: "60",
+            radius: "70",
             detail: {
-              fontSize: 16,
-              //   fontWeight: "bold",
-              color: "#000"
-            },
-            title: {
-              offsetCenter: [0, "70%"],
-              fontSize: 12
+              fontSize: 22,
+              color: "#000",
+              offsetCenter: [0, "65%"]
             },
             data: [{ value: NaN }]
           }

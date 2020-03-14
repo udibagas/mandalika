@@ -46,7 +46,7 @@ export default {
         },
         yAxis: {
           type: "value",
-          splitNumber: 2,
+          splitNumber: 5,
           axisLabel: {
             formatter: "{value}"
           }

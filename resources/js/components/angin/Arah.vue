@@ -67,7 +67,7 @@ export default {
           this.chartOptions.series[0].data = [0, 0, 0, 0, 0, 0, 0, 0];
 
           let index = 0;
-          const value = r.data.value;
+          const value = r.data;
 
           if (value >= 22.5 && value < 67.5) {
             // timur laut

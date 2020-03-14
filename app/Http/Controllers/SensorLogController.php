@@ -84,11 +84,7 @@ class SensorLogController extends Controller
             return round($data->value * 16387);
         }
 
-        if (in_array($request->unit, ['F', 'mph', 'in3/jam'])) {
-            return $data->value;
-        }
-
-        return $data;
+        return $data->value;
     }
 
     public function getTekanan(Request $request)

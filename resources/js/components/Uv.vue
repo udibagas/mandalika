@@ -52,17 +52,18 @@ export default {
                 color: "auto"
               }
             },
-            radius: "60",
+            radius: "70",
             detail: {
-              fontSize: 16,
+              fontSize: 22,
               //   fontWeight: "bold",
-              color: "#000"
+              color: "#000",
+              offsetCenter: [0, "65%"]
             },
             title: {
-              offsetCenter: [0, "70%"],
+              offsetCenter: [0, "90%"],
               fontSize: 12
             },
-            data: [{ value: 0, name: "index" }]
+            data: [{ value: NaN, name: "index" }]
           }
         ]
       }
@@ -74,10 +75,10 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[0].value = r.data.value;
+          this.chartOptions.series[0].data[0].value = r.data;
         })
         .catch(e => {
-          this.chartOptions.series[0].data[0].value = 0;
+          this.chartOptions.series[0].data[0].value = NaN;
         });
     }
   },
