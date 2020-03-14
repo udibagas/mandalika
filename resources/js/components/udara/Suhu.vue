@@ -98,7 +98,7 @@ export default {
           this.chartOptions.series[0].data[0].value = r.data;
           if (this.height == 100) {
             this.$store.commit("setSuhu", r.data);
-            this.$store.commit("setUnit", unit);
+            this.$store.commit("setUnit", this.unit);
           }
         })
         .catch(e => {
