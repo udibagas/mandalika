@@ -4,6 +4,7 @@
     <br />
     {{parameters[parameter]}}
     <br />
+    <br />
     <v-chart :options="chartOptions" class="echarts"></v-chart>
   </el-card>
 </template>
