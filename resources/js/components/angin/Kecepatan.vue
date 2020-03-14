@@ -4,6 +4,7 @@
     <br />
     {{height}}m
     <br />
+    <br />
     <v-chart :options="chartOptions" class="echarts"></v-chart>
 
     <el-radio-group v-model="unit" size="mini" @change="getData">
@@ -27,29 +28,17 @@ export default {
           {
             min: 0,
             max: 250,
-            name: "kecepatan",
-            type: "gauge",
             startAngle: 200,
             endAngle: -20,
+            name: "kecepatan",
+            type: "gauge",
             pointer: { width: 3 },
-            splitNumber: 5,
-            axisLine: {
-              lineStyle: {
-                // color: [[0.2, '#28b573'], [0.8, '#28b573'], [1, '#28b573']],
-                width: 7
-              }
-            },
-            axisTick: {
-              length: 9,
-              lineStyle: {
-                color: "auto"
-              }
-            },
+            splitNumber: 2,
+            axisLine: { lineStyle: { width: 7 } },
+            axisTick: { length: 0 },
             splitLine: {
-              length: 10,
-              lineStyle: {
-                color: "auto"
-              }
+              length: 7,
+              lineStyle: { color: "auto" }
             },
             radius: "70",
             detail: {

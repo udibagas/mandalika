@@ -32,23 +32,12 @@ export default {
             startAngle: 200,
             endAngle: -20,
             pointer: { width: 3 },
-            splitNumber: 5,
-            axisLine: {
-              lineStyle: {
-                width: 7
-              }
-            },
-            axisTick: {
-              length: 9,
-              lineStyle: {
-                color: "auto"
-              }
-            },
+            splitNumber: 2,
+            axisLine: { lineStyle: { width: 7 } },
+            axisTick: { length: 0 },
             splitLine: {
-              length: 10,
-              lineStyle: {
-                color: "auto"
-              }
+              length: 7,
+              lineStyle: { color: "auto" }
             },
             radius: "70",
             detail: {
