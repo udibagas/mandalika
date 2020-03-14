@@ -33,7 +33,7 @@ export default {
         },
         yAxis: {
           type: "value",
-          splitNumber: 3,
+          splitNumber: 2,
           axisLabel: {
             formatter: "{value}"
           }
