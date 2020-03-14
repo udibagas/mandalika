@@ -84,4 +84,9 @@ class UserController extends Controller
         $user->delete();
         return ['message' => 'Data telah dihapus'];
     }
+
+    public function me()
+    {
+        return auth()->user();
+    }
 }

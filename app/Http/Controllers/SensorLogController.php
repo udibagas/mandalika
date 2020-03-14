@@ -133,4 +133,10 @@ class SensorLogController extends Controller
             'terbenam' => (new Carbon($data->results->sunset))->addHours(8)->format('H:i:s'),
         ];
     }
+
+    public function getLastUpdate()
+    {
+        $data = SensorLog::latest()->first();
+        return $data ? $data->created_at : null;
+    }
 }

@@ -9,8 +9,6 @@ export default new Vuex.Store({
         suhu: NaN,
         kelembaban: NaN,
         unit: 'F',
-        // untuk di header
-        last_update: null
     },
     mutations: {
         setSuhu(state, suhu) {
@@ -21,9 +19,6 @@ export default new Vuex.Store({
         },
         setUnit(state, unit) {
             state.unit = unit
-        },
-        setLastUpdate(state, last_update) {
-            state.last_update = last_update
         }
     }
 })

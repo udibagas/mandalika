@@ -11,11 +11,6 @@ const router = new VueRouter({
             component: require('./pages/Home').default
         },
         {
-            path: '/chart',
-            name: 'home',
-            component: require('./pages/Home').default
-        },
-        {
             path: '/user',
             name: 'user',
             component: require('./pages/User').default

@@ -1,5 +1,5 @@
 <template>
-  <el-card class="text-center">
+  <el-card class="text-center" style="width:270px">
     <strong>LOG ANGIN</strong>
     <br />
     {{height}}m
@@ -110,6 +110,7 @@ export default {
 .echarts {
   height: 250px;
   max-width: 200px;
+  margin: auto;
 }
 
 .hijau {

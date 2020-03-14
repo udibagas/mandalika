@@ -1,33 +1,65 @@
 <template>
   <el-container>
     <el-header>
-      <!-- <span class="brand">MANDALIKA-WEATHER</span> -->
-      <el-menu
-        router
-        class="el-menu-demo"
-        mode="horizontal"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b"
-      >
-        <el-menu-item index="/">MANDALIKA-WEATHER</el-menu-item>
-        <!-- <el-submenu index="2">
-                    <template slot="title">Workspace</template>
-                    <el-menu-item index="2-1">item one</el-menu-item>
-                    <el-menu-item index="2-2">item two</el-menu-item>
-                    <el-menu-item index="2-3">item three</el-menu-item>
-                    <el-submenu index="2-4">
-                    <template slot="title">item four</template>
-                    <el-menu-item index="2-4-1">item one</el-menu-item>
-                    <el-menu-item index="2-4-2">item two</el-menu-item>
-                    <el-menu-item index="2-4-3">item three</el-menu-item>
-                    </el-submenu>
-        </el-submenu>-->
-        <el-menu-item index="/chart">Chart</el-menu-item>
-        <el-menu-item index="/table">Table</el-menu-item>
-        <el-menu-item index="/sensor-setting">Sensor Setting</el-menu-item>
-        <el-menu-item index="/user">User</el-menu-item>
-      </el-menu>
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/">MANDALIKA-WEATHER</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <!-- Left Side Of Navbar -->
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <router-link class="nav-link" to="/">
+                  <i class="el-icon-s-data"></i>
+                  Chart
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/table">
+                  <i class="el-icon-document-copy"></i>
+                  Table
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/sensor-setting">
+                  <i class="el-icon-setting"></i>
+                  Sensor Setting
+                </router-link>
+              </li>
+              <li class="nav-item">
+                <router-link class="nav-link" to="/user">
+                  <i class="el-icon-user"></i>
+                  User
+                </router-link>
+              </li>
+            </ul>
+
+            <!-- Right Side Of Navbar -->
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <span class="nav-link">Selamat datang, {{user.name}}!</span>
+              </li>
+              <li class="nav-item">
+                <a href="/logout" class="nav-link">Logout</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link">Update Terakhir: {{last_update | readableDateTime}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </el-header>
     <el-main>
       <router-view></router-view>
@@ -36,25 +68,41 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      user: {},
+      last_update: null
+    };
+  },
+  methods: {
+    me() {
+      axios.get("/me").then(r => (this.user = r.data));
+    },
+    getLastUpdate() {
+      axios.get("/getLastUpdate").then(r => (this.last_update = r.data));
+    }
+  },
+  created() {
+    this.me();
+    this.getLastUpdate();
+    setInterval(this.getLastUpdate, 60000);
+  }
+};
 </script>
 
 <style lang="css" scoped>
 .el-header {
-  /* line-height: 40px; */
-  /* height: 40px !important; */
-  background-color: #535b64;
-  /* color: #fff; */
-  /* padding: 0 20px; */
+  background-color: #343940;
 }
 
-.el-main {
+/* .el-main {
   height: calc(100vh - 60px);
   overflow: auto;
-}
+} */
 
-.brand {
+/* .brand {
   font-weight: bold;
   font-size: 16px;
-}
+} */
 </style>
