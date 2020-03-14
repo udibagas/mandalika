@@ -96,13 +96,8 @@ export default {
   background-color: #343940;
 }
 
-/* .el-main {
+.el-main {
   height: calc(100vh - 60px);
   overflow: auto;
-} */
-
-/* .brand {
-  font-weight: bold;
-  font-size: 16px;
-} */
+}
 </style>
