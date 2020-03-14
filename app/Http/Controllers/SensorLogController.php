@@ -81,7 +81,7 @@ class SensorLogController extends Controller
         }
 
         if ($request->unit == 'mm3/jam') {
-            return $data->value * 16387;
+            return round($data->value * 16387);
         }
 
         if (in_array($request->unit, ['F', 'mph', 'in3/jam'])) {
