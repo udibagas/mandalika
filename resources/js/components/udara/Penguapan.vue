@@ -2,6 +2,11 @@
   <el-card class="text-center">
     <strong>PENGUAPAN AIR</strong>
     <v-chart :options="chartOptions" class="echarts"></v-chart>
+    <br />
+    <el-radio-group v-model="unit" size="mini" @change="requestData">
+      <el-radio-button label="in3/jam"></el-radio-button>
+      <el-radio-button label="mm3/jam"></el-radio-button>
+    </el-radio-group>
   </el-card>
 </template>
 
@@ -14,6 +19,7 @@ export default {
   props: ["height"],
   data() {
     return {
+      unit: "in3/jam",
       fetchInterval: null,
       chartOptions: {
         grid: {
@@ -29,7 +35,7 @@ export default {
           type: "value",
           splitNumber: 5,
           axisLabel: {
-            formatter: "{value} in³/jam"
+            formatter: "{value}"
           }
         },
         axisLine: {
@@ -59,26 +65,27 @@ export default {
   },
   methods: {
     getData(data, index) {
-      const params = { parameter: data };
+      const params = { parameter: data, unit: this.unit };
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data[index].value = r.data.value;
+          this.chartOptions.series[0].data[index].value = r.data;
         })
         .catch(e => {
           this.chartOptions.series[0].data[index].value = 0;
         });
-    }
-  },
-  created() {
-    this.getData("data32", 0);
-    this.getData("data33", 1);
-    this.getData("data34", 2);
-
-    this.fetchInterval = setInterval(() => {
+    },
+    requestData() {
       this.getData("data32", 0);
       this.getData("data33", 1);
       this.getData("data34", 2);
+    }
+  },
+  created() {
+    this.requestData();
+
+    this.fetchInterval = setInterval(() => {
+      this.requestData();
     }, 60000);
   },
   destroyed() {
