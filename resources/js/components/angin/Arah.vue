@@ -25,7 +25,7 @@ export default {
         },
         angleAxis: {
           type: "category",
-          startAngle: 112,
+          startAngle: 112.5,
           data: ["U", "TL", "T", "TG", "S", "BD", "B", "BL"]
         },
         radiusAxis: {

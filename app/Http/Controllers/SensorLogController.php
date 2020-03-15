@@ -139,4 +139,65 @@ class SensorLogController extends Controller
         $data = SensorLog::latest()->first();
         return $data ? $data->created_at : null;
     }
+
+    public function getLogAngin()
+    {
+        // [
+        //       {
+        //         type: "bar",
+        //         data: [1, 2, 3, 4, 3, 5, 1, 4],
+        //         coordinateSystem: "polar",
+        //         name: "0-2mph",
+        //         stack: "a"
+        //       },
+        //       {
+        //         type: "bar",
+        //         data: [2, 4, 6, 1, 3, 2, 1, 3],
+        //         coordinateSystem: "polar",
+        //         name: "2-4mph",
+        //         stack: "a"
+        //       },
+        //       {
+        //         type: "bar",
+        //         data: [1, 2, 3, 4, 1, 2, 5, 2],
+        //         coordinateSystem: "polar",
+        //         name: "4-6mph",
+        //         stack: "a"
+        //       }
+        // ]
+        // grouping data berdasarkan kecepatan angin
+        $sql = "
+
+        ";
+
+        $legend = ['0-2mph', '2-4mph', '4-6mph'];
+        $series = [
+            [
+                'type' => 'bar',
+                'data' => [1, 2, 3, 4, 3, 5, 1, 4],
+                'coordinateSystem' => 'polar',
+                'name' => '0-2mph',
+                'stack' => 'a'
+            ],
+            [
+                'type' => 'bar',
+                'data' => [1, 2, 3, 4, 3, 5, 1, 4],
+                'coordinateSystem' => 'polar',
+                'name' => '2-4mph',
+                'stack' => 'a'
+            ],
+            [
+                'type' => 'bar',
+                'data' => [1, 2, 3, 4, 3, 5, 1, 4],
+                'coordinateSystem' => 'polar',
+                'name' => '4-6mph',
+                'stack' => 'a'
+            ],
+        ];
+
+        return [
+            'series' => $series,
+            'legend' => $legend
+        ];
+    }
 }

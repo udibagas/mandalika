@@ -20,6 +20,20 @@
     </el-radio-group>
 
     <v-chart :options="chartOptions" class="echarts"></v-chart>
+
+    <!-- <el-tabs>
+      <el-tab-pane :label="x" v-for="(x, i) in ['HARI', 'PEKAN', 'BULAN']" :key="i">
+        <div class="d-flex flex-wrap justify-content-around">
+          <div class="text-center mb-3 hijau tag">0-2 mph</div>
+          <div class="text-center mb-3 hijau-muda tag">2-4 mph</div>
+          <div class="text-center mb-3 biru tag">4-6 mph</div>
+          <div class="text-center mb-3 ungu tag">6-8 mph</div>
+          <div class="text-center mb-3 kuning tag">8-10 mph</div>
+          <div class="text-center mb-3 orange tag">10-20 mph</div>
+          <div class="text-center mb-3 hitam tag">>20 mph</div>
+        </div>
+      </el-tab-pane>
+    </el-tabs>-->
   </el-card>
 </template>
 
@@ -37,9 +51,6 @@ export default {
       period: "HARI",
       fetchInterval: null,
       chartOptions: {
-        grid: {
-          bottom: "20px"
-        },
         angleAxis: {
           type: "category",
           startAngle: 112.5,
@@ -47,7 +58,29 @@ export default {
         },
         radiusAxis: { type: "log" },
         polar: {},
-        series: [],
+        series: [
+          //   {
+          //     type: "bar",
+          //     data: [1, 2, 3, 4, 3, 5, 1, 4],
+          //     coordinateSystem: "polar",
+          //     name: "A",
+          //     stack: "a"
+          //   },
+          //   {
+          //     type: "bar",
+          //     data: [2, 4, 6, 1, 3, 2, 1, 3],
+          //     coordinateSystem: "polar",
+          //     name: "B",
+          //     stack: "a"
+          //   },
+          //   {
+          //     type: "bar",
+          //     data: [1, 2, 3, 4, 1, 2, 5, 2],
+          //     coordinateSystem: "polar",
+          //     name: "C",
+          //     stack: "a"
+          //   }
+        ],
         legend: {
           show: true,
           bottom: 0,
@@ -84,8 +117,8 @@ export default {
     }
   },
   created() {
-    this.getData();
-    this.fetchInterval = setInterval(this.getData, 60000);
+    // this.getData();
+    // this.fetchInterval = setInterval(this.getData, 60000);
   },
   destroyed() {
     clearInterval(this.fetchInterval);

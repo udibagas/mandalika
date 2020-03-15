@@ -22,6 +22,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get("sensorLog", "SensorLogController@index");
     Route::get("sensorLog/getLastData", "SensorLogController@getLastData");
     Route::get("sensorLog/getTekanan", "SensorLogController@getTekanan");
+    Route::get("sensorLog/getLogAngin", "SensorLogController@getLogAngin");
     Route::get('getTerbitTerbenam', 'SensorLogController@getTerbitTerbenam');
     Route::get('me', 'UserController@me');
     Route::get('getLastUpdate', 'SensorLogController@getLastUpdate');

@@ -1,7 +1,29 @@
 <template>
   <div>
     <div class="d-flex flex-wrap">
-      <Angin class="flex-fill mr-1" :height="i" v-for="i in [100, 70, 40, 10, 2]" :key="'angin'+i" />
+      <KecepatanAngin
+        class="flex-fill mr-1 mb-1"
+        :height="i"
+        v-for="i in [100, 70, 40, 10, 2]"
+        :key="'kecepatan-angin'+i"
+      />
+    </div>
+    <div class="d-flex flex-wrap">
+      <ArahAngin
+        class="flex-fill mr-1 mb-1"
+        :height="i"
+        v-for="i in [100, 70, 40, 10, 2]"
+        :key="'arah-angin'+i"
+      />
+    </div>
+
+    <div class="d-flex flex-wrap">
+      <LogAngin
+        class="flex-fill mr-1 mb-1"
+        :height="i"
+        v-for="i in [100, 70, 40, 10, 2]"
+        :key="'log-angin'+i"
+      />
     </div>
 
     <div class="d-flex flex-wrap">
@@ -31,7 +53,10 @@
 </template>
 
 <script>
-import Angin from "../components/angin/Index";
+// import Angin from "../components/angin/Index";
+import KecepatanAngin from "../components/angin/Kecepatan";
+import ArahAngin from "../components/angin/Arah";
+import LogAngin from "../components/angin/Log";
 import Udara from "../components/udara/Index";
 import Kelembaban from "../components/udara/Kelembaban";
 import CurahHujan from "../components/udara/CurahHujan";
@@ -44,7 +69,7 @@ import TerbitTerbenam from "../components/TerbitTerbenam";
 
 export default {
   components: {
-    Angin,
+    // Angin,
     Udara,
     Kelembaban,
     CurahHujan,
@@ -53,7 +78,10 @@ export default {
     Uv,
     HujanSaatIni,
     PrakiraanCuaca,
-    TerbitTerbenam
+    TerbitTerbenam,
+    KecepatanAngin,
+    ArahAngin,
+    LogAngin
   }
 };
 </script>

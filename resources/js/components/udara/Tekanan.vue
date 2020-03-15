@@ -114,7 +114,7 @@ export default {
 <style lang="scss" scoped>
 .echarts {
   height: 250px;
-  max-width: 300px;
+  max-width: 375px;
   margin: auto;
 }
 </style>

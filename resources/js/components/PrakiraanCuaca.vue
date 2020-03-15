@@ -66,7 +66,7 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.nilai = r.data.value;
+          this.nilai = r.data;
         })
         .catch(e => {
           this.nilai = 0;
