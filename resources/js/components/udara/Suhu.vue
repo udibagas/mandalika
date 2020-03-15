@@ -94,14 +94,14 @@ export default {
         .get("sensorLog/getLastData", { params })
         .then(r => {
           this.chartOptions.series[0].data[0].value = r.data;
-          if (this.height == 100) {
+          if (this.height == 2) {
             this.$store.commit("setSuhu", r.data);
             this.$store.commit("setUnit", this.unit);
           }
         })
         .catch(e => {
           this.chartOptions.series[0].data[0].value = NaN;
-          if (this.height == 100) {
+          if (this.height == 2) {
             this.$store.commit("setSuhu", NaN);
           }
         });
