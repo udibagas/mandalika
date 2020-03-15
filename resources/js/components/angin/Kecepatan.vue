@@ -54,6 +54,8 @@ export default {
   },
   methods: {
     getData() {
+      this.chartOptions.series[0].max = this.unit == "mph" ? 200 : 322;
+
       const data = {
         100: "data2",
         70: "data7",

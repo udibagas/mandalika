@@ -4,47 +4,38 @@
     <br />
     {{height}}m
     <br />
-    <v-chart :options="chartOptions" class="echarts"></v-chart>
+    <Plotly :data="data" :layout="layout" :displayModeBar="false" class="chart"></Plotly>
   </el-card>
 </template>
 
 <script>
-import "echarts/lib/component/tooltip";
-import "echarts/lib/component/legend";
-import "echarts/lib/chart/gauge";
-import "echarts/lib/component/polar";
+import { Plotly } from "vue-plotly";
 
 export default {
+  components: { Plotly },
   props: ["height"],
   data() {
     return {
       fetchInterval: null,
-      chartOptions: {
-        grid: {
-          bottom: "0px"
-        },
-        angleAxis: {
-          type: "category",
-          startAngle: 112.5,
-          data: ["U", "TL", "T", "TG", "S", "BD", "B", "BL"]
-        },
-        radiusAxis: {
-          splitNumber: 1,
-          splitLine: {
-            show: false
-          }
-        },
-        axisTick: {
-          show: false
-        },
-        polar: {},
-        series: [
-          {
-            type: "bar",
-            data: [0, 0, 0, 0, 0, 0, 0, 0],
-            coordinateSystem: "polar"
-          }
-        ]
+      data: [
+        {
+          r: [0, 0, 0, 0, 0, 0, 0, 0],
+          theta: ["U", "TM", "T", "TG", "S", "BD", "B", "BL"],
+          name: "arah",
+          type: "barpolar"
+        }
+      ],
+      layout: {
+        width: 200,
+        dragmode: false,
+        margin: { l: 0, t: 0, b: 0, r: 0 },
+        showLegend: false,
+        polar: {
+          barmode: "overlay",
+          bargap: 0,
+          radialaxis: { ticksuffix: "", angle: 45, dtick: 20 },
+          angularaxis: { direction: "clockwise" }
+        }
       }
     };
   },
@@ -64,7 +55,7 @@ export default {
       axios
         .get("sensorLog/getLastData", { params })
         .then(r => {
-          this.chartOptions.series[0].data = [0, 0, 0, 0, 0, 0, 0, 0];
+          this.data[0].r = [0, 0, 0, 0, 0, 0, 0, 0];
 
           let index = 0;
           const value = r.data;
@@ -95,14 +86,10 @@ export default {
             index = 0;
           }
 
-          if (value == 0) {
-            this.chartOptions.series[0].data = [0, 0, 0, 0, 0, 0, 0, 0];
-          } else {
-            this.chartOptions.series[0].data[index] = 1;
-          }
+          this.data[0].r[index] = 1;
         })
         .catch(e => {
-          this.chartOptions.series[0].data = [0, 0, 0, 0, 0, 0, 0, 0];
+          this.data[0].r = [0, 0, 0, 0, 0, 0, 0, 0];
         });
     }
   },
@@ -117,7 +104,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.echarts {
+.chart {
   height: 250px;
   max-width: 200px;
   margin: auto;

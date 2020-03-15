@@ -19,7 +19,7 @@ export default {
         series: [
           {
             min: 0,
-            max: 10,
+            max: 16,
             type: "gauge",
             startAngle: 200,
             endAngle: -20,
