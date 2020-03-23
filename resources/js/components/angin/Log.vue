@@ -68,12 +68,12 @@ export default {
       layout: {
         width: 200,
         autosize: false,
-        margin: { l: 0, t: 0, b: 0, r: 0 },
+        margin: { l: 15, t: 0, b: 0, r: 15 },
         legend: { orientation: "h" },
         polar: {
           barmode: "overlay",
           bargap: 0,
-          radialaxis: { ticksuffix: "%", angle: 45, dtick: 20 },
+          radialaxis: { ticksuffix: "%", angle: 90, dtick: 20 },
           angularaxis: { direction: "clockwise" }
         }
       }
@@ -96,12 +96,12 @@ export default {
       axios
         .get("sensorLog/getLogAngin", { params })
         .then(r => {
-          this.chartOptions.series = r.data.series;
-          this.chartOptions.legend.data = r.data.legend;
+          //   this.chartOptions.series = r.data.series;
+          //   this.chartOptions.legend.data = r.data.legend;
         })
         .catch(e => {
-          this.chartOptions.series = [];
-          this.chartOptions.legend.data = [];
+          //   this.chartOptions.series = [];
+          //   this.chartOptions.legend.data = [];
         });
     }
   },

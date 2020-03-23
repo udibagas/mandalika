@@ -4,8 +4,8 @@
     <v-chart :options="chartOptions" class="echarts"></v-chart>
     <br />
     <el-radio-group v-model="unit" size="mini" @change="requestData">
-      <el-radio-button label="in3/jam"></el-radio-button>
-      <el-radio-button label="mm3/jam"></el-radio-button>
+      <el-radio-button label="inch"></el-radio-button>
+      <el-radio-button label="mm"></el-radio-button>
     </el-radio-group>
   </el-card>
 </template>
@@ -17,7 +17,7 @@ export default {
   props: ["height"],
   data() {
     return {
-      unit: "in3/jam",
+      unit: "inch",
       fetchInterval: null,
       chartOptions: {
         grid: {

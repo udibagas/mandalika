@@ -28,12 +28,12 @@ export default {
       layout: {
         width: 200,
         dragmode: false,
-        margin: { l: 0, t: 0, b: 0, r: 0 },
+        margin: { l: 15, t: 0, b: 0, r: 15 },
         showLegend: false,
         polar: {
           barmode: "overlay",
           bargap: 0,
-          radialaxis: { ticksuffix: "", angle: 45, dtick: 20 },
+          radialaxis: { ticksuffix: "", angle: 90, dtick: 20 },
           angularaxis: { direction: "clockwise" }
         }
       }

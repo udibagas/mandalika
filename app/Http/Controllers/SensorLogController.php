@@ -80,8 +80,8 @@ class SensorLogController extends Controller
             return round($data->value * 1.60934);
         }
 
-        if ($request->unit == 'mm3/jam') {
-            return round($data->value * 16387);
+        if ($request->unit == 'mm') {
+            return round($data->nilai * 0.2);
         }
 
         return $data->value;
