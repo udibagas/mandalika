@@ -28,4 +28,4 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('getLastUpdate', 'SensorLogController@getLastUpdate');
 });
 
-// Route::get('/{any}', 'HomeController@index')->where('any', '.*');
+Route::get('/{any}', 'HomeController@index')->where('any', '.*');
