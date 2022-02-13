@@ -8,10 +8,30 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
+/**
+ * @group Sensor Log
+ *
+ * API untuk menyimpan dan mengambil data log sensor
+ */
 class SensorLogController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Mengambil Log Sensor
+     *
+     * Mengambil data log sensor berdasarkan waktu tertentu.
+     *
+     * @queryParam dateRange Array periode tanggal. Example: ["2022-01-01", "2022-01-21"]
+     * @queryParam sort Sorting field. Example: created_at
+     * @queryParam order  Order sorting. Example: ascending. Defaults to "descending".
+     * @queryParam pageSize Jumlah data per halaman. Example: 10. Defaults to 15.
+     *
+     * @response {
+     *  "data" : [
+     *      { parameter: "data1", nilai: 100 },
+     *      ...
+     *  ]
+     * }
      *
      * @return \Illuminate\Http\Response
      */
@@ -25,7 +45,16 @@ class SensorLogController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Simpan Log
+     *
+     * Menyimpan data log sensor
+     *
+     * @queryParam data1...dataN required int Data sesuai dengan setting sensor
+     *
+     * @response {
+     *  "success": true,
+     *  "message": "OK"
+     * }
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -64,6 +93,17 @@ class SensorLogController extends Controller
         }
     }
 
+    /**
+     * Get Last Data
+     *
+     * Mengambil data terakhir dari sebuah sensor
+     *
+     * @bodyParam parameter string required Parameter sensor. Example: data1
+     * @bodyParam unit string Satuan nilai sensor. Example: km/h
+     *
+     * @response 12
+     *
+     */
     public function getLastData(Request $request)
     {
         $data = SensorLog::where('parameter', $request->parameter)->latest()->first();
@@ -87,6 +127,21 @@ class SensorLogController extends Controller
         return $data->value;
     }
 
+    /**
+     * Get Tekanan
+     *
+     * Mengambil data terakhir sensor tekanan
+     *
+     * @bodyParam parameter string required Parameter sensor. Example: data1
+     * @bodyParam date string required Tanggal. Example: 2022-01-01
+     * @bodyParam unit string optional Satuan nilai sensor. Example: hPa
+     *
+     * @response {
+     *  "value": [3, 4, 2, 4, 5],
+     *  "category": ["10:00", "11:00", "12:00", "13:00", "14:00"],
+     *  "unit": "inHg"
+     * }
+     */
     public function getTekanan(Request $request)
     {
         $value = [];
@@ -116,6 +171,16 @@ class SensorLogController extends Controller
         ];
     }
 
+    /**
+     * Export to Excel
+     *
+     * Mengambil data log sensor dalam format JSON untuk diubah ke format MS Excel
+     *
+     * @queryParam dateRange array Array periode tanggal. Example : ["2022-01-01", "2022-01-21"]
+     * @queryParam sort string Sorting field. Example: created_at
+     * @queryParam order string  Order sorting. Example: ascending
+     * @queryParam pageSize int Jumlah data per halaman. Example: 10
+     */
     public function exportToExcel(Request $request)
     {
         return SensorLog::when($request->dateRange, function ($q) use ($request) {
@@ -123,6 +188,16 @@ class SensorLogController extends Controller
         })->orderBy($request->sort ?: 'created_at', $request->order == 'ascending' ? 'asc' : 'desc')->get();
     }
 
+    /**
+     * Get Terbit Terbenam
+     *
+     * Mengambil data waktu matahari terbit dan terbenam
+     *
+     * @response {
+     *  "terbit": "04:45:00",
+     *  "terbenam": "18:15:00"
+     * }
+     */
     public function getTerbitTerbenam(Request $request)
     {
         $data = file_get_contents('https://api.sunrise-sunset.org/json?lat=8.5996&lng=116.1522&formatted=0');
@@ -134,6 +209,13 @@ class SensorLogController extends Controller
         ];
     }
 
+    /**
+     * Get Last Update
+     *
+     * Mengambil waktu terakhir data sensor diupdate
+     *
+     * @response "2022-02-13 15:30:03"
+     */
     public function getLastUpdate()
     {
         $data = SensorLog::latest()->first();

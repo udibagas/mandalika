@@ -1,0 +1,182 @@
+{
+    "variables": [],
+    "info": {
+        "name": "Laravel API",
+        "_postman_id": "a59797f2-7cbb-4e5e-a637-dc81a1b510ae",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.0.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Sensor Log",
+            "description": "\nAPI untuk menyimpan dan mengambil data log sensor",
+            "item": [
+                {
+                    "name": "Mengambil Log Sensor",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "windturbine-ik.com",
+                            "path": "api\/sensorLog",
+                            "query": [
+                                {
+                                    "key": "dateRange",
+                                    "value": "%5B%222022-01-01%22%2C+%222022-01-21%22%5D",
+                                    "description": "Array periode tanggal.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "sort",
+                                    "value": "created_at",
+                                    "description": "Sorting field.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "order",
+                                    "value": "ascending.+Defaults+to+%22descending%22.",
+                                    "description": "Order sorting.",
+                                    "disabled": false
+                                },
+                                {
+                                    "key": "pageSize",
+                                    "value": "10.+Defaults+to+15.",
+                                    "description": "Jumlah data per halaman.",
+                                    "disabled": false
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Mengambil data log sensor berdasarkan waktu tertentu.",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Get Last Data",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "windturbine-ik.com",
+                            "path": "api\/sensorLog\/getLastData",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"parameter\": \"data1\",\n    \"unit\": \"km\\\/h\"\n}"
+                        },
+                        "description": "Mengambil data terakhir dari sebuah sensor",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Get Tekanan",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "windturbine-ik.com",
+                            "path": "api\/sensorLog\/getTekanan",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\n    \"parameter\": \"data1\",\n    \"date\": \"2022-01-01\",\n    \"unit\": \"hPa\"\n}"
+                        },
+                        "description": "Mengambil data terakhir sensor tekanan",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Get Terbit Terbenam",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "windturbine-ik.com",
+                            "path": "api\/getTerbitTerbenam",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Mengambil data waktu matahari terbit dan terbenam",
+                        "response": []
+                    }
+                },
+                {
+                    "name": "Get Last Update",
+                    "request": {
+                        "url": {
+                            "protocol": "http",
+                            "host": "windturbine-ik.com",
+                            "path": "api\/getLastUpdate",
+                            "query": []
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "[]"
+                        },
+                        "description": "Mengambil waktu terakhir data sensor diupdate",
+                        "response": []
+                    }
+                }
+            ]
+        }
+    ]
+}

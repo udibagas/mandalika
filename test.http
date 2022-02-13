@@ -1,0 +1,13 @@
+# GET http://windturbine-ik.com/api/sensorLog?api_token=3QazDuMV7WJlQDy2IA0Sik03uNXKxNBJk1s0z9uEZJSwSFkvRmGooSnx8mg7xo9IHXjA5bhJrp8PyOKH&data1=100&data3=30
+# Content-Type: application/json
+# Accept: application/json
+
+
+GET http://windturbine-ik.com/api/login
+Content-Type: application/json
+Accept: application/json
+
+{
+    "email": "admin@mail.com",
+    "password": "bismillah"
+}
