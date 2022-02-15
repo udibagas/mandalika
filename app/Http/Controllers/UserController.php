@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use \App\Http\Requests\UserRequest;
 use Illuminate\Support\Str;
 use \App\User;
+use Illuminate\Support\Facades\Hash;
 
 
 class UserController extends Controller
@@ -32,14 +33,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $input = $request->all();
-
-        if ($request->passsword) {
-            $input['password'] = Hash::make($request->password);
-        }
-
-        $input['api_token'] = Str::random();
-        return User::create($input);
+        return User::create($request->all());
     }
 
     /**
@@ -62,14 +56,7 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        $input = $request->all();
-
-        if ($request->passsword) {
-            $input['password'] = Hash::make($request->password);
-        }
-
-        $input['api_token'] = Str::random();
-        $user->update($input);
+        $user->update($request->all());
         return $user;
     }
 
