@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Http\Requests\UserRequest;
-use Illuminate\Support\Str;
 use \App\User;
-use Illuminate\Support\Facades\Hash;
 
 
 class UserController extends Controller
