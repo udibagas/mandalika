@@ -31,13 +31,13 @@
 									Table
 								</router-link>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item" v-if="user.role == 1">
 								<router-link class="nav-link" to="/sensor-setting">
 									<i class="el-icon-setting"></i>
 									Sensor Setting
 								</router-link>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item" v-if="user.role == 1">
 								<router-link class="nav-link" to="/user">
 									<i class="el-icon-user"></i>
 									User
@@ -74,22 +74,22 @@ export default {
 	data() {
 		return {
 			user: {},
-			last_update: null
+			last_update: null,
 		};
 	},
 	methods: {
 		me() {
-			axios.get("/me").then(r => (this.user = r.data));
+			axios.get("/me").then((r) => (this.user = r.data));
 		},
 		getLastUpdate() {
-			axios.get("/getLastUpdate").then(r => (this.last_update = r.data));
-		}
+			axios.get("/getLastUpdate").then((r) => (this.last_update = r.data));
+		},
 	},
 	created() {
 		this.me();
 		this.getLastUpdate();
 		setInterval(this.getLastUpdate, 60000);
-	}
+	},
 };
 </script>
 

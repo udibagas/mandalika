@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 
 class SensorSettingController extends Controller
 {
+    public function __construct()
+    {
+        return $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
