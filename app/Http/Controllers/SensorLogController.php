@@ -138,7 +138,8 @@ class SensorLogController extends Controller
                     'parameter' => $item->parameter,
                     'description' => $item->setting ? $item->setting->description : '',
                     'value' => $item->value,
-                    'unit' => $item->setting ? $item->setting->unit : ''
+                    'unit' => $item->setting ? $item->setting->unit : '',
+                    'updated_at' => $item->updated_at
                 ];
             });
         }
