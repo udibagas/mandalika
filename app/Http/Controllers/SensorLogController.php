@@ -106,25 +106,44 @@ class SensorLogController extends Controller
      */
     public function getLastData(Request $request)
     {
-        $data = SensorLog::where('parameter', $request->parameter)->latest()->first();
+        if ($request->parameter) {
+            $data = SensorLog::where('parameter', $request->parameter)->latest()->first();
 
-        if (!$data) {
-            return response(['message' => 'data not found'], 404);
+            if (!$data) {
+                return response(['message' => 'data not found'], 404);
+            }
+
+            if ($request->unit == 'C') {
+                return round(($data->value - 32) * 5 / 9, 1);
+            }
+
+            if ($request->unit == 'km/h') {
+                return round($data->value * 1.60934);
+            }
+
+            if ($request->unit == 'mm') {
+                return round($data->nilai * 0.2);
+            }
+
+            return $data->value;
         }
 
-        if ($request->unit == 'C') {
-            return round(($data->value - 32) * 5 / 9, 1);
+        $lastData = SensorLog::latest()->first();
+
+        if ($lastData) {
+            return SensorLog::where('created_at', $lastData->created_at)->get()->map(function ($item) {
+                return [
+                    'id' => $item->id,
+                    'ketinggian' => $item->ketinggian,
+                    'parameter' => $item->parameter,
+                    'description' => $item->setting ? $item->setting->description : '',
+                    'value' => $item->value,
+                    'unit' => $item->setting ? $item->setting->unit : ''
+                ];
+            });
         }
 
-        if ($request->unit == 'km/h') {
-            return round($data->value * 1.60934);
-        }
-
-        if ($request->unit == 'mm') {
-            return round($data->nilai * 0.2);
-        }
-
-        return $data->value;
+        return null;
     }
 
     /**
