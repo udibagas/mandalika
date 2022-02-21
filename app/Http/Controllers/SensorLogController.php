@@ -131,17 +131,27 @@ class SensorLogController extends Controller
         $lastData = SensorLog::latest()->first();
 
         if ($lastData) {
-            return SensorLog::where('created_at', $lastData->created_at)->get()->map(function ($item) {
-                return [
-                    'id' => $item->id,
-                    'ketinggian' => $item->ketinggian,
-                    'parameter' => $item->parameter,
-                    'description' => $item->setting ? $item->setting->description : '',
-                    'value' => $item->value,
-                    'unit' => $item->setting ? $item->setting->unit : '',
-                    'updated_at' => $item->updated_at
-                ];
-            });
+            $latestData = SensorLog::where('created_at', $lastData->created_at)->get();
+
+            if ($request->format == 'json') {
+                return $latestData->map(function ($item) {
+                    return [
+                        'id' => $item->id,
+                        'ketinggian' => $item->ketinggian,
+                        'parameter' => $item->parameter,
+                        'description' => $item->setting ? $item->setting->description : '',
+                        'value' => $item->value,
+                        'unit' => $item->setting ? $item->setting->unit : '',
+                        'updated_at' => $item->updated_at
+                    ];
+                });
+            }
+
+            $response = $latestData->map(function ($item) {
+                return $item->parameter . '=' . $item->nilai;
+            })->join(',');
+
+            return $response . ',last_update=' . $lastData->created_at;
         }
 
         return null;
